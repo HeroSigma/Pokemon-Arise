@@ -288,6 +288,25 @@ static const struct MenuAction MultichoiceList_HowsFishing[] =
     {COMPOUND_STRING("Not so good")},
 };
 
+static const struct MenuAction MultichoiceList_TruckPlayerResponse1[] =
+{
+    {COMPOUND_STRING("Yeah... it's been years.")},
+    {COMPOUND_STRING("Not by choice.")},
+};
+
+static const struct MenuAction MultichoiceList_TruckPlayerResponse2[] =
+{
+    {COMPOUND_STRING("What's inside?")},
+    {COMPOUND_STRING("Later.")},
+};
+
+static const struct MenuAction MultichoiceList_LittlerootArrivalResponse[] =
+{
+    {COMPOUND_STRING("Yeah... been too long.")},
+    {COMPOUND_STRING("Not thrilled.")},
+    {COMPOUND_STRING("It's fine.")},
+};
+
 static const struct MenuAction MultichoiceList_SSTidalSlateportWithBF[] =
 {
     {gText_LilycoveCity},
@@ -842,7 +861,9 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_GAME_CORNER_DOLLS]          = MULTICHOICE(MultichoiceList_GameCornerDolls),
     [MULTI_GAME_CORNER_COINS]          = MULTICHOICE(MultichoiceList_GameCornerCoins),
     [MULTI_HOWS_FISHING]               = MULTICHOICE(MultichoiceList_HowsFishing),
-    [MULTI_UNUSED_51]                  = MULTICHOICE(MultichoiceList_Exit),
+    [MULTI_TRUCK_PLAYER_RESPONSE1]     = MULTICHOICE(MultichoiceList_TruckPlayerResponse1),
+    [MULTI_TRUCK_PLAYER_RESPONSE2]     = MULTICHOICE(MultichoiceList_TruckPlayerResponse2),
+    [MULTI_LITTLEROOT_ARRIVAL_RESPONSE] = MULTICHOICE(MultichoiceList_LittlerootArrivalResponse),
     [MULTI_SSTIDAL_SLATEPORT_WITH_BF]  = MULTICHOICE(MultichoiceList_SSTidalSlateportWithBF),
     [MULTI_SSTIDAL_BATTLE_FRONTIER]    = MULTICHOICE(MultichoiceList_SSTidalBattleFrontier),
     [MULTI_RIGHTLEFT]                  = MULTICHOICE(MultichoiceList_RightLeft),

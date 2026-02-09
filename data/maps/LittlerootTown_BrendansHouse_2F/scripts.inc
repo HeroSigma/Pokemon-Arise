@@ -4,6 +4,15 @@ LittlerootTown_BrendansHouse_2F_MapScripts::
 	.byte 0
 
 LittlerootTown_BrendansHouse_2F_OnTransition:
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_2F_EventScript_CheckIntroStateForBrendan
+	goto LittlerootTown_BrendansHouse_2F_EventScript_SkipIntroCheck
+
+LittlerootTown_BrendansHouse_2F_EventScript_CheckIntroStateForBrendan::
+	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 7, LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan
+	return
+
+LittlerootTown_BrendansHouse_2F_EventScript_SkipIntroCheck::
 	call_if_lt VAR_LITTLEROOT_RIVAL_STATE, 2, LittlerootTown_BrendansHouse_2F_EventScript_CheckSetReadyToMeetBrendan
 	call_if_ge VAR_LITTLEROOT_RIVAL_STATE, 3, LittlerootTown_BrendansHouse_2F_EventScript_CheckShouldUpdateBrendanPos
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
@@ -30,7 +39,7 @@ LittlerootTown_BrendansHouse_2F_EventScript_Ret::
 
 LittlerootTown_BrendansHouse_2F_EventScript_CheckSetReadyToMeetBrendan::
 	checkplayergender
-	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan
 	return
 
 LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan::
@@ -270,19 +279,33 @@ PlayersHouse_2F_EventScript_GameCube::
 	msgbox PlayersHouse_2F_Text_ItsAGameCube, MSGBOX_SIGN
 	end
 
-PlayersHouse_2F_Text_ClockIsStopped:
-	.string "The clock is stopped…\p"
+PlayersHouse_2F_Text_ThisIsYourRoom::
+	.string "This is your room...\p"
+	.string "Just like you left it.\p"
+	.string "A little dustier now.$"
+
+PlayersHouse_2F_Text_OldPhoto::
+	.string "An old photo on the shelf...\p"
+	.string "You as a kid, Mom, Dad...\p"
+	.string "Smiling outside the old lab.$"
+
+PlayersHouse_2F_Text_ClockIsStopped::
+	.string "The clock is stopped...\p"
 	.string "Better set it and start it!$"
 
-PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
-	.string "MOM: {PLAYER}, how do you like your\n"
-	.string "new room?\p"
-	.string "Good! Everything's put away neatly!\p"
-	.string "They finished moving everything in\n"
-	.string "downstairs, too.\p"
-	.string "POKéMON movers are so convenient!\p"
-	.string "Oh, you should make sure that\n"
-	.string "everything's all there on your desk.$"
+PlayersHouse_2F_Text_SetClock::
+	.string "{PLAYER} set the clock.\p"
+	.string "The seconds start ticking...\p"
+	.string "Time feels heavier now.$"
+
+PlayersHouse_2F_Text_HowDoYouLikeYourRoom::
+	.string "SELENE: {PLAYER}, how do you like\p"
+	.string "your room?\p"
+	.string "Everything's put away neatly!\p"
+	.string "The movers finished downstairs.\p"
+	.string "Pokémon movers are so convenient!\p"
+	.string "Oh, check your desk too,\p"
+	.string "make sure nothing's missing.$"
 
 PlayersHouse_2F_Text_Notebook:
 	.string "{PLAYER} flipped open the notebook.\p"
@@ -291,6 +314,12 @@ PlayersHouse_2F_Text_Notebook:
 	.string "ADVENTURE RULE NO. 2\n"
 	.string "Record your progress with SAVE.\p"
 	.string "The remaining pages are blank…$"
+
+PlayersHouse_2F_Text_DeskItems:
+	.string "On the desk: your old toy truck,\n"
+	.string "a dusty Poké Ball sticker,\l"
+	.string "and a blank notebook...\n"
+	.string "from before you left.$"
 
 Common_Text_LookCloserAtMap:
 	.string "{PLAYER} took a closer look at the\n"

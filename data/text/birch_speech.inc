@@ -7,25 +7,21 @@ gText_Birch_Welcome::
 	.string "$"
 
 gText_Birch_Pokemon::
-	.string "This is what we call a “POKéMON.”\p"
-	.string "\n"
+	.string "The world... it's changing.\p"
+	.string "Rifts are tearing it apart.\p"
 	.string "$"
 
 gText_Birch_MainSpeech::
-	.string "This world is widely inhabited by\n"
-	.string "creatures known as POKéMON.\p"
-	.string "We humans live alongside POKéMON,\n"
-	.string "at times as friendly playmates, and\l"
-	.string "at times as cooperative workmates.\p"
-	.string "And sometimes, we band together\n"
-	.string "and battle others like us.\p"
-	.string "But despite our closeness, we don't\n"
-	.string "know everything about POKéMON.\p"
-	.string "In fact, there are many, many\n"
-	.string "secrets surrounding POKéMON.\p"
-	.string "To unravel POKéMON mysteries,\n"
-	.string "I've been undertaking research.\l"
-	.string "That's what I do.\p"
+	.string "Legends sleep across every region.\p"
+	.string "Some watch over us.\p"
+	.string "Others... wait in the dark.\p"
+	.string "But now, something is very wrong.\p"
+	.string "The world is tearing open.\p"
+	.string "POKéMON and people...\p"
+	.string "appearing from nowhere.\p"
+	.string "You...\p"
+	.string "You have to help me\n"
+	.string "figure this out.\p"
 	.string "$"
 
 gText_Birch_AndYouAre::
@@ -43,19 +39,31 @@ gText_Birch_SoItsPlayer::
 	.string "So it's {PLAYER}{KUN}?$"
 
 gText_Birch_YourePlayer::
-	.string "Ah, okay!\p"
-	.string "You're {PLAYER}{KUN} who's moving to my\n"
-	.string "hometown of LITTLEROOT.\l"
-	.string "I get it now!\p"
+	.string "...{PLAYER}{KUN}?\p"
+	.string "Is that really you...?\p"
+	.string "It's been eleven years!\p"
+	.string "You left Hoenn as a kid...\p"
+	.string "And now you're back...\p"
+	.string "just like this.\p"
 	.string "$"
 
 gText_Birch_AreYouReady::
-	.string "All right, are you ready?\p"
-	.string "Your very own adventure is about\n"
-	.string "to unfold.\p"
-	.string "Take courage, and leap into the\n"
-	.string "world of POKéMON where dreams,\l"
-	.string "adventure, and friendships await!\p"
-	.string "Well, I'll be expecting you later.\n"
-	.string "Come see me in my POKéMON LAB.\p"
+	.string "Listen...\p"
+	.string "I don't have time to explain.\p"
+	.string "Outside-\p"
+	.string "Hoenn is falling apart!\p"
+	.string "Something terrible is happening!\p"
+	.string "Come find me-quickly!!\p"
 	.string "$"
+
+gText_PlayerOpt1_Yeah::
+	.string "Yeah... it's been years.$"
+
+gText_PlayerOpt1_Not::
+	.string "Not by choice.$"
+
+gText_PlayerOpt2_Yes::
+	.string "What's inside?$"
+
+gText_PlayerOpt2_No::
+	.string "Later.$"

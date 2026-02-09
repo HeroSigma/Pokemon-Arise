@@ -283,48 +283,97 @@ LittlerootTown_BrendansHouse_1F_Movement_BrendanGoUpstairs2:
 	walk_up
 	step_end
 
-PlayersHouse_1F_Text_IsntItNiceInHere:
-	.string "MOM: See, {PLAYER}?\n"
-	.string "Isn't it nice in here, too?$"
+PlayersHouse_1F_Text_IsntItNiceInHere::
+	.string "SELENE: See, {PLAYER}?\p"
+	.string "Isn't it nice in here?\p"
+	.string "$"
 
-PlayersHouse_1F_Text_MoversPokemonGoSetClock:
-	.string "The mover's POKéMON do all the work\n"
-	.string "of moving us in and cleaning up after.\l"
-	.string "This is so convenient!\p"
-	.string "{PLAYER}, your room is upstairs.\n"
-	.string "Go check it out, dear!\p"
-	.string "DAD bought you a new clock to mark\n"
-	.string "our move here.\l"
+PlayersHouse_1F_Text_MoversPokemonGoSetClock::
+	.string "SELENE: The movers' Pokémon\p"
+	.string "handled everything.\p"
+	.string "So convenient!\p"
+	.string "{PLAYER}, your room's upstairs.\p"
+	.string "Go take a look, dear.\p"
+	.string "Your dad got you a new clock\p"
+	.string "for the move.\p"
 	.string "Don't forget to set it!$"
 
-PlayersHouse_1F_Text_ArentYouInterestedInRoom:
-	.string "MOM: Well, {PLAYER}?\p"
-	.string "Aren't you interested in seeing your\n"
-	.string "very own room?$"
+PlayersHouse_1F_Text_ArentYouInterestedInRoom::
+	.string "SELENE: {PLAYER}?\p"
+	.string "Aren't you curious about\p"
+	.string "your room?$"
 
-PlayersHouse_1F_Text_GoSetTheClock:
-	.string "MOM: {PLAYER}.\p"
-	.string "Go set the clock in your room, honey.$"
+PlayersHouse_1F_Text_GoSetTheClock::
+	.string "SELENE: {PLAYER}, honey...\p"
+	.string "Please go set the clock\p"
+	.string "in your room.\p"
+	.string "It's waiting for you.$"
 
-PlayersHouse_1F_Text_OhComeQuickly:
-	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
-	.string "Quick! Come quickly!$"
+PlayersHouse_1F_Text_OhComeQuickly::
+	.string "SELENE: Oh! {PLAYER}, {PLAYER}!\p"
+	.string "Quick! Come quickly!\p"
+	.string "$"
 
-PlayersHouse_1F_Text_MaybeDadWillBeOn:
-	.string "MOM: Look! It's PETALBURG GYM!\n"
-	.string "Maybe DAD will be on!$"
+PlayersHouse_1F_Text_TVNormal::
+	.string "A news report is playing...\p"
+	.string "ANCHOR: ...and in today's sports,\p"
+	.string "the Battle Frontier is hosting\p"
+	.string "an exhibition match!\p"
+	.string "$"
 
-PlayersHouse_1F_Text_ItsOverWeMissedHim:
-	.string "MOM: Oh… It's over.\p"
-	.string "I think DAD was on, but we missed him.\n"
-	.string "Too bad.$"
+PlayersHouse_1F_Text_MaybeDadWillBeOn::
+	.string "SELENE: Look! It's the Battle Frontier!\p"
+	.string "Maybe your dad will be on!\p"
+	.string "$"
 
-PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
-	.string "Oh, yes.\n"
-	.string "One of DAD's friends lives in town.\p"
-	.string "PROF. BIRCH is his name.\p"
-	.string "He lives right next door, so you should\n"
-	.string "go over and introduce yourself.$"
+PlayersHouse_1F_Text_TVInterruption::
+	.string "ANCHOR: Wait--something's happening...\p"
+	.string "Reports of a massive energy surge!\p"
+	.string "The sky above the Frontier is...\p"
+	.string "tearing open!\p"
+	.string "A rift--it's swallowing the arena!\p"
+	.string "Trainers and Pokémon are--\p"
+	.string "$"
+
+PlayersHouse_1F_Text_PlayerAndSelene_Shock::
+	.string "SELENE: No... it couldn't be...\p"
+	.string "{PLAYER}...\p"
+	.string "$"
+
+PlayersHouse_1F_Text_Selene_Hope::
+	.string "SELENE: I hope Prof. Cae-\p"
+	.string "static crackles loudly\p"
+	.string "-is okay...\p"
+	.string "$"
+
+PlayersHouse_1F_Text_TVStatic::
+	.string "The screen fills with static.\p"
+	.string "The broadcast cuts out completely.\p"
+	.string "$"
+
+PlayersHouse_1F_Text_Selene_Aftermath::
+	.string "SELENE: ...What was that?\p"
+	.string "A rift... right there...\p"
+	.string "This isn't normal.\p"
+	.string "$"
+
+PlayersHouse_1F_Text_ItsOverWeMissedHim::
+	.string "SELENE: The broadcast... it's gone.\p"
+	.string "Your dad was at the Frontier...\p"
+	.string "I have to know if he's okay.\p"
+	.string "Please, {PLAYER}... hurry.\p"
+	.string "$"
+
+PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor::
+	.string "SELENE: ...{PLAYER}.\p"
+	.string "One of your dad's old friends\p"
+	.string "lives right next door.\p"
+	.string "Prof. Birch.\p"
+	.string "Go over and introduce yourself.\p"
+	.string "He might know something...\p"
+	.string "$"
+
+
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"

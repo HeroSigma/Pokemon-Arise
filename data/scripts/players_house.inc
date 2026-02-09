@@ -54,9 +54,19 @@ LittlerootTown_MaysHouse_2F_EventScript_WallClock::
 
 PlayersHouse_2F_EventScript_WallClock::
 	goto_if_set FLAG_SET_WALL_CLOCK, PlayersHouse_2F_EventScript_CheckWallClock
+	msgbox PlayersHouse_2F_Text_ThisIsYourRoom, MSGBOX_DEFAULT
+	closemessage
+	delay 20
+	msgbox PlayersHouse_2F_Text_OldPhoto, MSGBOX_DEFAULT
+	closemessage
+	delay 20
 	msgbox PlayersHouse_2F_Text_ClockIsStopped, MSGBOX_DEFAULT
+	closemessage
 	call PlayersHouse_2F_EventScript_SetWallClock
 	delay 30
+	msgbox PlayersHouse_2F_Text_SetClock, MSGBOX_DEFAULT
+	closemessage
+	delay 20
 	setvar VAR_LITTLEROOT_INTRO_STATE, 6
 	setflag FLAG_SET_WALL_CLOCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
@@ -78,6 +88,9 @@ PlayersHouse_2F_EventScript_MomComesUpstairsMale::
 	waitmovement 0
 	msgbox PlayersHouse_2F_Text_HowDoYouLikeYourRoom, MSGBOX_DEFAULT
 	closemessage
+	delay 15
+	msgbox PlayersHouse_2F_Text_DeskItems, MSGBOX_DEFAULT
+	closemessage
 	applymovement VAR_0x8008, PlayersHouse_2F_Movement_MomExitsMale
 	waitmovement 0
 	return
@@ -90,6 +103,9 @@ PlayersHouse_2F_EventScript_MomComesUpstairsFemale::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox PlayersHouse_2F_Text_HowDoYouLikeYourRoom, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox PlayersHouse_2F_Text_DeskItems, MSGBOX_DEFAULT
 	closemessage
 	applymovement VAR_0x8008, PlayersHouse_2F_Movement_MomExitsFemale
 	waitmovement 0
@@ -207,7 +223,23 @@ PlayersHouse_1F_EventScript_MomNoticeGymBroadcast::
 PlayersHouse_1F_EventScript_WatchGymBroadcast::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	msgbox PlayersHouse_1F_Text_ReportFromPetalburgGym, MSGBOX_DEFAULT
+	msgbox PlayersHouse_1F_Text_TVNormal, MSGBOX_DEFAULT
+	closemessage
+	delay 20
+	msgbox PlayersHouse_1F_Text_TVInterruption, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox PlayersHouse_1F_Text_PlayerAndSelene_Shock, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox PlayersHouse_1F_Text_Selene_Hope, MSGBOX_DEFAULT
+	closemessage
+	delay 20
+	msgbox PlayersHouse_1F_Text_TVStatic, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox PlayersHouse_1F_Text_Selene_Aftermath, MSGBOX_DEFAULT
+	closemessage
 	fadedefaultbgm
 	special TurnOffTVScreen
 	setflag FLAG_SYS_TV_HOME

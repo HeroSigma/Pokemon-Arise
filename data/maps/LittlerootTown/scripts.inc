@@ -144,7 +144,20 @@ LittlerootTown_EventScript_GoInsideWithMom::
 	delay 10
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomApproachPlayerAtTruck
 	waitmovement 0
-	msgbox LittlerootTown_Text_OurNewHomeLetsGoInside, MSGBOX_DEFAULT
+	msgbox LittlerootTown_Text_ArrivalHome, MSGBOX_DEFAULT
+	closemessage
+	delay 20
+	msgbox LittlerootTown_Text_Selene_TiringRide, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox LittlerootTown_Text_Player_Choice1, MSGBOX_DEFAULT
+	closemessage
+	multichoice 20, 10, MULTI_LITTLEROOT_ARRIVAL_RESPONSE, 0
+	call_if_eq VAR_RESULT, 0, LittlerootTown_EventScript_PlayerChoiceNostalgic
+	call_if_eq VAR_RESULT, 1, LittlerootTown_EventScript_PlayerChoiceResent
+	call_if_eq VAR_RESULT, 2, LittlerootTown_EventScript_PlayerChoiceNeutral
+	delay 15
+	msgbox LittlerootTown_Text_Selene_YourRoom, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_LITTLEROOT_MOM, LittlerootTown_Movement_MomApproachDoor
 	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerApproachDoor
@@ -885,6 +898,30 @@ LittlerootTown_EventScript_Mom::
 	goto LittlerootTown_EventScript_SetReceivedRunningShoes
 	end
 
+LittlerootTown_EventScript_PlayerChoiceNostalgic::
+	msgbox LittlerootTown_Text_PlayerOpt1_Nostalgic, MSGBOX_DEFAULT
+	closemessage
+	delay 10
+	msgbox LittlerootTown_Text_Selene_Nostalgic, MSGBOX_DEFAULT
+	closemessage
+	return
+
+LittlerootTown_EventScript_PlayerChoiceResent::
+	msgbox LittlerootTown_Text_PlayerOpt1_Resent, MSGBOX_DEFAULT
+	closemessage
+	delay 10
+	msgbox LittlerootTown_Text_Selene_Resent, MSGBOX_DEFAULT
+	closemessage
+	return
+
+LittlerootTown_EventScript_PlayerChoiceNeutral::
+	msgbox LittlerootTown_Text_PlayerOpt1_Neutral, MSGBOX_DEFAULT
+	closemessage
+	delay 10
+	msgbox LittlerootTown_Text_Selene_Neutral, MSGBOX_DEFAULT
+	closemessage
+	return
+
 LittlerootTown_EventScript_SetReceivedRunningShoes::
 	removeobject LOCALID_LITTLEROOT_MOM
 	setflag FLAG_SYS_B_DASH
@@ -904,17 +941,50 @@ LittlerootTown_EventScript_GiveRunningShoes::
 	delay 30
 	return
 
-LittlerootTown_Text_OurNewHomeLetsGoInside:
-	.string "MOM: {PLAYER}, we're here, honey!\p"
-	.string "It must be tiring riding with our things\n"
-	.string "in the moving truck.\p"
-	.string "Well, this is LITTLEROOT TOWN.\p"
-	.string "How do you like it?\n"
-	.string "This is our new home!\p"
-	.string "It has a quaint feel, but it seems to be\n"
-	.string "an easy place to live, don't you think?\p"
-	.string "And, you get your own room, {PLAYER}!\n"
-	.string "Let's go inside.$"
+LittlerootTown_Text_ArrivalHome::
+	.string "SELENE: {PLAYER}, we're here!\p"
+	.string "Littleroot Town...\p"
+	.string "Our new home.$"
+
+LittlerootTown_Text_Selene_TiringRide::
+	.string "SELENE: Long ride, huh?\p"
+	.string "With all our things.\p"
+	.string "How do you like it?\p"
+	.string "Feels... familiar?$"
+
+LittlerootTown_Text_Player_Choice1::
+	.string "What do you say?$"
+
+LittlerootTown_Text_PlayerOpt1_Nostalgic::
+	.string "{PLAYER}: Yeah... been too long.$"
+
+LittlerootTown_Text_PlayerOpt1_Resent::
+	.string "{PLAYER}: Not thrilled.$"
+
+LittlerootTown_Text_PlayerOpt1_Neutral::
+	.string "{PLAYER}: It's fine.$"
+
+LittlerootTown_Text_Selene_Nostalgic::
+	.string "SELENE: I knew you'd feel it.\p"
+	.string "Hoenn's in your blood.$"
+
+LittlerootTown_Text_Selene_Resent::
+	.string "SELENE: I get it, honey.\p"
+	.string "Times change us.\p"
+	.string "We'll make it home.$"
+
+LittlerootTown_Text_Selene_Neutral::
+	.string "SELENE: Good enough start.\p"
+	.string "You'll warm up.$"
+
+LittlerootTown_Text_Selene_YourRoom::
+	.string "SELENE: You get your old room!\p"
+	.string "All set up.\p"
+	.string "Let's head inside.$"
+
+LittlerootTown_Text_Selene_Interrupt::
+	.string "SELENE: Hmm-what's that noise?\p"
+	.string "$"
 
 LittlerootTown_Text_WaitPlayer:
 	.string "MOM: Wait, {PLAYER}!$"
@@ -1003,6 +1073,123 @@ LittlerootTown_Text_PlayersHouse:
 LittlerootTown_Text_ProfBirchsHouse:
 	.string "PROF. BIRCH'S HOUSE$"
 
+LittlerootTown_EventScript_TwinEncounterTrigger::
+	lockall
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_TwinEncounterMale
+	goto LittlerootTown_EventScript_TwinEncounterFemale
+	end
+
+LittlerootTown_EventScript_TwinEncounterMale::
+	setvar VAR_0x8004, 14
+	setvar VAR_0x8005, 8
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_BRENDAN
+	goto LittlerootTown_EventScript_TwinEncounterMain
+	end
+
+LittlerootTown_EventScript_TwinEncounterFemale::
+	setvar VAR_0x8004, 5
+	setvar VAR_0x8005, 8
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_MAY
+	goto LittlerootTown_EventScript_TwinEncounterMain
+	end
+
+LittlerootTown_EventScript_TwinEncounterMain::
+	@ Position twin at their house door
+	setobjectxy LOCALID_LITTLEROOT_RIVAL, VAR_0x8004, VAR_0x8005
+	setobjectmovementtype LOCALID_LITTLEROOT_RIVAL, MOVEMENT_TYPE_FACE_DOWN
+	
+	@ Twin exits their house
+	playse SE_EXIT
+	delay 10
+	opendoor VAR_0x8004, VAR_0x8005
+	waitdooranim
+	addobject LOCALID_LITTLEROOT_RIVAL
+	delay 30
+	
+	@ Twin approaches player
+	playse SE_PIN
+	applymovement LOCALID_LITTLEROOT_RIVAL, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_LITTLEROOT_RIVAL, Common_Movement_Delay48
+	waitmovement 0
+	
+	@ Twin walks to player
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_TwinWalkToPlayerMale
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_TwinWalkToPlayerFemale
+	waitmovement 0
+	
+	@ Dialogue sequence - use gender-specific text
+	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_TwinDialogueMale
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_TwinDialogueFemale
+	delay 15
+	
+	@ Player response
+	msgbox LittlerootTown_Text_Player_Response, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	
+	@ Twin final response
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_TwinFinalMale
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_TwinFinalFemale
+	delay 15
+	
+	@ Twin walks north and disappears
+	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_TwinWalkNorth
+	waitmovement 0
+	removeobject LOCALID_LITTLEROOT_RIVAL
+	
+	@ Set flag to prevent re-triggering
+	setvar VAR_LITTLEROOT_INTRO_TWIN_MET, 1
+	
+	savebgm MUS_DUMMY
+	fadedefaultbgm
+	releaseall
+	end
+
+LittlerootTown_EventScript_TwinWalkToPlayerMale::
+	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_TwinApproachPlayerMale
+	return
+
+LittlerootTown_EventScript_TwinWalkToPlayerFemale::
+	applymovement LOCALID_LITTLEROOT_RIVAL, LittlerootTown_Movement_TwinApproachPlayerFemale
+	return
+
+LittlerootTown_Movement_TwinApproachPlayerMale:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	face_left
+	step_end
+
+LittlerootTown_Movement_TwinApproachPlayerFemale:
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	face_right
+	step_end
+
+LittlerootTown_Movement_TwinWalkNorth:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
 LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "PROF. BIRCH: Well, well, {PLAYER}{KUN}!\n"
 	.string "That was good work out there!\p"
@@ -1013,4 +1200,93 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
+
+LittlerootTown_Text_Player_Response::
+	.string "{PLAYER}: I've got some thoughts...\p"
+	.string "But I need to talk to Prof. Birch first.\p"
+	.string "$"
+
+LittlerootTown_EventScript_TwinDialogueMale::
+	msgbox LittlerootTown_Text_TwinApproachMale, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox LittlerootTown_Text_TwinGreetingMale, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox LittlerootTown_Text_TwinNewsMale, MSGBOX_DEFAULT
+	closemessage
+	return
+
+LittlerootTown_EventScript_TwinDialogueFemale::
+	msgbox LittlerootTown_Text_TwinApproachFemale, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox LittlerootTown_Text_TwinGreetingFemale, MSGBOX_DEFAULT
+	closemessage
+	delay 15
+	msgbox LittlerootTown_Text_TwinNewsFemale, MSGBOX_DEFAULT
+	closemessage
+	return
+
+LittlerootTown_EventScript_TwinFinalMale::
+	msgbox LittlerootTown_Text_TwinAgreeMale, MSGBOX_DEFAULT
+	closemessage
+	return
+
+LittlerootTown_EventScript_TwinFinalFemale::
+	msgbox LittlerootTown_Text_TwinAgreeFemale, MSGBOX_DEFAULT
+	closemessage
+	return
+
+LittlerootTown_Text_TwinApproachMale::
+	.string "Brendan: ...!\p"
+	.string "{PLAYER}?\p"
+	.string "$"
+
+LittlerootTown_Text_TwinApproachFemale::
+	.string "May: ...!\p"
+	.string "{PLAYER}?\p"
+	.string "$"
+
+LittlerootTown_Text_TwinGreetingMale::
+	.string "Brendan: Whoa, it really is you!\p"
+	.string "It's been forever...\p"
+	.string "Great seeing you again!\p"
+	.string "$"
+
+LittlerootTown_Text_TwinGreetingFemale::
+	.string "May: Whoa, it really is you!\p"
+	.string "It's been forever...\p"
+	.string "Great seeing you again!\p"
+	.string "$"
+
+LittlerootTown_Text_TwinNewsMale::
+	.string "Brendan: Did you see the news?\p"
+	.string "That rift thing at the Battle Frontier...\p"
+	.string "It's crazy, right?\p"
+	.string "What do you think about it?\p"
+	.string "$"
+
+LittlerootTown_Text_TwinNewsFemale::
+	.string "May: Did you see the news?\p"
+	.string "That rift thing at the Battle Frontier...\p"
+	.string "It's crazy, right?\p"
+	.string "What do you think about it?\p"
+	.string "$"
+
+LittlerootTown_Text_TwinAgreeMale::
+	.string "Brendan: Yeah, good call.\p"
+	.string "He should be home upstairs,\p"
+	.string "or maybe already at his lab.\p"
+	.string "You should head over.\p"
+	.string "$"
+
+LittlerootTown_Text_TwinAgreeFemale::
+	.string "May: Yeah, good call.\p"
+	.string "He should be home upstairs,\p"
+	.string "or maybe already at his lab.\p"
+	.string "You should head over.\p"
+	.string "$"
+
+
 
