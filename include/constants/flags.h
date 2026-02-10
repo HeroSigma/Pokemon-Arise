@@ -13,11 +13,11 @@
 #define FLAG_TEMP_2      (TEMP_FLAGS_START + 0x2)
 #define FLAG_TEMP_3      (TEMP_FLAGS_START + 0x3)
 #define FLAG_TEMP_4      (TEMP_FLAGS_START + 0x4)
-#define FLAG_TEMP_5      (TEMP_FLAGS_START + 0x5)  // Unused Flag
-#define FLAG_TEMP_6      (TEMP_FLAGS_START + 0x6)  // Unused Flag
-#define FLAG_TEMP_7      (TEMP_FLAGS_START + 0x7)  // Unused Flag
-#define FLAG_TEMP_8      (TEMP_FLAGS_START + 0x8)  // Unused Flag
-#define FLAG_TEMP_9      (TEMP_FLAGS_START + 0x9)  // Unused Flag
+#define FLAG_TEMP_5      (TEMP_FLAGS_START + 0x5)  // Smart Wild AI Flag
+#define FLAG_TEMP_6      (TEMP_FLAGS_START + 0x6)  // Dynamax Battle Flag
+#define FLAG_TEMP_7      (TEMP_FLAGS_START + 0x7)  // Tera Orb Charged Flag
+#define FLAG_TEMP_8      (TEMP_FLAGS_START + 0x8)  // Sleep Clause Flag
+#define FLAG_TEMP_9      (TEMP_FLAGS_START + 0x9)  // No Whiteout Flag
 #define FLAG_TEMP_A      (TEMP_FLAGS_START + 0xA)  // Unused Flag
 #define FLAG_TEMP_B      (TEMP_FLAGS_START + 0xB)  // Unused Flag
 #define FLAG_TEMP_C      (TEMP_FLAGS_START + 0xC)  // Unused Flag
@@ -87,9 +87,9 @@
 #define FLAG_UNUSED_0x049    0x49 // Unused Flag
 #define FLAG_UNUSED_0x04A    0x4A // Unused Flag
 #define FLAG_UNUSED_0x04B    0x4B // Unused Flag
-#define FLAG_UNUSED_0x04C    0x4C // Unused Flag
-#define FLAG_UNUSED_0x04D    0x4D // Unused Flag
-#define FLAG_UNUSED_0x04E    0x4E // Unused Flag
+#define FLAG_UNUSED_0x04C    0x4C // DexNav Searching Flag
+#define FLAG_UNUSED_0x04D    0x4D // DexNav Get Flag
+#define FLAG_UNUSED_0x04E    0x4E // DexNav Detector Mode Flag
 #define FLAG_UNUSED_0x04F    0x4F // Unused Flag
 
 // Scripts
