@@ -1,0 +1,119 @@
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/battle_bg.o src/battle_bg.c
+tools/compresSmol/compresSmol -w graphics/battle_transitions/frontier_square_1.4bpp graphics/battle_transitions/frontier_square_1.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/battle_transitions/frontier_square_2.4bpp graphics/battle_transitions/frontier_square_2.4bpp.smol
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/battle_script_commands.o src/battle_script_commands.c
+tools/compresSmol/compresSmol -w graphics/battle_transitions/frontier_square_3.4bpp graphics/battle_transitions/frontier_square_3.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/battle_transitions/frontier_square_4.4bpp graphics/battle_transitions/frontier_square_4.4bpp.smol
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/battle_transition_frontier.o src/battle_transition_frontier.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/berry_crush.o src/berry_crush.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/contest_painting.o src/contest_painting.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/data.o src/data.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/diploma.o src/diploma.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/credits.o src/credits.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/dexnav.o src/dexnav.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/dodrio_berry_picking.o src/dodrio_berry_picking.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/easy_chat.o src/easy_chat.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/evolution_scene.o src/evolution_scene.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/expansion_intro.o src/expansion_intro.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/evolution_graphics.o src/evolution_graphics.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/fldeff_flash.o src/fldeff_flash.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/frontier_pass.o src/frontier_pass.c
+tools/compresSmol/compresSmol -w graphics/battle_anims/sprites/flower.4bpp graphics/battle_anims/sprites/flower.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/battle_anims/sprites/ice_crystals.4bpp graphics/battle_anims/sprites/ice_crystals.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/battle_anims/sprites/ice_cube.4bpp graphics/battle_anims/sprites/ice_cube.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/battle_anims/sprites/mud_sand.4bpp graphics/battle_anims/sprites/mud_sand.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/battle_anims/sprites/spark.4bpp graphics/battle_anims/sprites/spark.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/battle_interface/battle_bar.4bpp graphics/battle_interface/battle_bar.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/contest/japanese/composite_1.4bpp graphics/contest/japanese/composite_1.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/contest/japanese/composite_2.4bpp graphics/contest/japanese/composite_2.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/horizontal/tiles.4bpp graphics/pokemon_storage/wallpapers/horizontal/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/ribbon/tiles.4bpp graphics/pokemon_storage/wallpapers/ribbon/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokenav/options/options.4bpp graphics/pokenav/options/options.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/types/move_types.4bpp graphics/types/move_types.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/unused/obi1.4bpp graphics/unused/obi1.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/unused/obi2.4bpp graphics/unused/obi2.4bpp.smol
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/intro.o src/intro.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/hall_of_fame.o src/hall_of_fame.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/intro_credits_graphics.o src/intro_credits_graphics.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/link_rfu_3.o src/link_rfu_3.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/list_menu.o src/list_menu.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/link.o src/link.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/main_menu.o src/main_menu.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/match_call.o src/match_call.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/minigame_countdown.o src/minigame_countdown.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/mystery_gift_menu.o src/mystery_gift_menu.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/mystery_gift_view.o src/mystery_gift_view.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokedex_area_region_map.o src/pokedex_area_region_map.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokedex_area_screen.o src/pokedex_area_screen.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokedex_cry_screen.o src/pokedex_cry_screen.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokedex_plus_hgss.o src/pokedex_plus_hgss.c
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/azumarill/tiles.4bpp graphics/pokemon_storage/wallpapers/azumarill/tiles.4bpp.smol
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokemon_jump.o src/pokemon_jump.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokemon.o src/pokemon.c
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/beach/tiles.4bpp graphics/pokemon_storage/wallpapers/beach/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/blank/tiles.4bpp graphics/pokemon_storage/wallpapers/blank/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/block/tiles.4bpp graphics/pokemon_storage/wallpapers/block/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/cave/tiles.4bpp graphics/pokemon_storage/wallpapers/cave/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/circles/tiles.4bpp graphics/pokemon_storage/wallpapers/circles/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/city/tiles.4bpp graphics/pokemon_storage/wallpapers/city/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/crag/tiles.4bpp graphics/pokemon_storage/wallpapers/crag/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/desert/tiles.4bpp graphics/pokemon_storage/wallpapers/desert/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/diagonal/tiles.4bpp graphics/pokemon_storage/wallpapers/diagonal/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/dusclops/tiles.4bpp graphics/pokemon_storage/wallpapers/dusclops/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/forest/tiles.4bpp graphics/pokemon_storage/wallpapers/forest/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/frame/tiles.4bpp graphics/pokemon_storage/wallpapers/frame/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/legendary/tiles.4bpp graphics/pokemon_storage/wallpapers/legendary/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/ludicolo/tiles.4bpp graphics/pokemon_storage/wallpapers/ludicolo/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/machine/tiles.4bpp graphics/pokemon_storage/wallpapers/machine/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/pikachu/tiles.4bpp graphics/pokemon_storage/wallpapers/pikachu/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/plain/tiles.4bpp graphics/pokemon_storage/wallpapers/plain/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/pokecenter/tiles.4bpp graphics/pokemon_storage/wallpapers/pokecenter/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/pokecenter2/tiles.4bpp graphics/pokemon_storage/wallpapers/pokecenter2/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/polkadot/tiles.4bpp graphics/pokemon_storage/wallpapers/polkadot/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/river/tiles.4bpp graphics/pokemon_storage/wallpapers/river/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/savanna/tiles.4bpp graphics/pokemon_storage/wallpapers/savanna/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/screen/tiles.4bpp graphics/pokemon_storage/wallpapers/screen/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/seafloor/tiles.4bpp graphics/pokemon_storage/wallpapers/seafloor/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/sky/tiles.4bpp graphics/pokemon_storage/wallpapers/sky/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/snow/tiles.4bpp graphics/pokemon_storage/wallpapers/snow/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/volcano/tiles.4bpp graphics/pokemon_storage/wallpapers/volcano/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/whiscash/tiles.4bpp graphics/pokemon_storage/wallpapers/whiscash/tiles.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/pokemon_storage/wallpapers/zigzagoon/tiles.4bpp graphics/pokemon_storage/wallpapers/zigzagoon/tiles.4bpp.smol
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_conditions_gfx.o src/pokenav_conditions_gfx.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_conditions_search_results.o src/pokenav_conditions_search_results.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_list.o src/pokenav_list.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_main_menu.o src/pokenav_main_menu.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_match_call_gfx.o src/pokenav_match_call_gfx.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_menu_handler_gfx.o src/pokenav_menu_handler_gfx.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_region_map.o src/pokenav_region_map.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_ribbons_list.o src/pokenav_ribbons_list.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/pokenav_ribbons_summary.o src/pokenav_ribbons_summary.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/quests.o src/quests.c
+tools/compresSmol/compresSmol -w graphics/roulette/roulette_tilt.4bpp graphics/roulette/roulette_tilt.4bpp.smol
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/region_map.o src/region_map.c
+tools/compresSmol/compresSmol -w graphics/roulette/wheel_icons.4bpp graphics/roulette/wheel_icons.4bpp.smol
+tools/compresSmol/compresSmol -w graphics/slot_machine/reel_time_gfx.4bpp graphics/slot_machine/reel_time_gfx.4bpp.smol
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/save_failed_screen.o src/save_failed_screen.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/starter_choose.o src/starter_choose.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/tilesets.o src/tilesets.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/title_screen.o src/title_screen.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/trade.o src/trade.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/trainer_card.o src/trainer_card.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/union_room_chat.o src/union_room_chat.c
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/wallclock.o src/wallclock.c
+tools/preproc/preproc data/poryscripts.s charmap.txt | arm-none-eabi-cpp -I include - | tools/preproc/preproc -ie data/poryscripts.s charmap.txt | arm-none-eabi-as -mcpu=arm7tdmi -march=armv4t -meabi=5 --defsym MODERN=1 -o build/modern/data/poryscripts.o
+/usr/lib/gcc/arm-none-eabi/13.2.1/cc1 -quiet <flags> -o build/modern/src/wireless_communication_status_screen.o src/wireless_communication_status_screen.c
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/ampharos.aif sound/direct_sound_samples/cries/ampharos.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/ampharos_mega.aif sound/direct_sound_samples/cries/ampharos_mega.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/annihilape.aif sound/direct_sound_samples/cries/annihilape.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/anorith.aif sound/direct_sound_samples/cries/anorith.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/appletun.aif sound/direct_sound_samples/cries/appletun.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/applin.aif sound/direct_sound_samples/cries/applin.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/araquanid.aif sound/direct_sound_samples/cries/araquanid.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/arbok.aif sound/direct_sound_samples/cries/arbok.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/arboliva.aif sound/direct_sound_samples/cries/arboliva.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/arcanine.aif sound/direct_sound_samples/cries/arcanine.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/arceus.aif sound/direct_sound_samples/cries/arceus.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/archaludon.aif sound/direct_sound_samples/cries/archaludon.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/archen.aif sound/direct_sound_samples/cries/archen.bin --compress
+tools/aif2pcm/aif2pcm sound/direct_sound_samples/cries/archeops.aif sound/direct_sound_samples/cries/archeops.bin --compress

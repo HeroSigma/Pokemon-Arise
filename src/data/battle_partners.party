@@ -1,0 +1,94 @@
+=== PARTNER_NONE ===
+Name:
+Class: Pkmn Trainer 1
+Pic: Brendan
+Gender: Male
+Music: Male
+Back Pic: Brendan
+
+=== PARTNER_STEVEN ===
+Name: STEVEN
+Class: Rival
+Pic: Steven
+Gender: Male
+Music: Male
+Back Pic: Steven
+AI: Basic Trainer
+
+Metang
+Brave Nature
+Level: 42
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+EVs: 252 Atk / 252 Def / 6 SpA
+- Light Screen
+- Psychic
+- Reflect
+- Metal Claw
+
+Skarmory
+Impish Nature
+Level: 43
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+EVs: 252 HP / 6 SpA / 252 SpD
+- Toxic
+- Aerial Ace
+- Protect
+- Steel Wing
+
+Aggron
+Adamant Nature
+Level: 44
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+EVs: 252 Atk / 252 SpA / 6 SpD
+- Thunder
+- Protect
+- Solar Beam
+- Dragon Claw
+
+=== PARTNER_GREEN ===
+Name: GREEN
+Class: Rival
+Pic: Leaf
+Gender: Female
+Music: Female
+Back Pic: Leaf
+AI: Basic Trainer
+
+Wartortle (F) @ Eviolite
+Level: 22
+Ability: Torrent
+Nature: Modest
+Tera Type: Water
+Ball: Great Ball
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+- Water Pulse
+- Bite
+- Protect
+- Hidden Power
+
+Jigglypuff (F) @ Leftovers
+Level: 21
+Ability: Cute Charm
+Nature: Calm
+Tera Type: Fairy
+Ball: Poke Ball
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+EVs: 252 HP / 4 Def / 252 SpD
+- Sing
+- Disarming Voice
+- Wish
+- Hidden Power
+
+Clefairy (F) @ Eviolite
+Level: 21
+Ability: Magic Guard
+Nature: Bold
+Tera Type: Fairy
+Ball: Great Ball
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+EVs: 252 HP / 252 Def / 4 SpD
+- Moonblast
+- Encore
+- Soft-Boiled
+- Hidden Power
