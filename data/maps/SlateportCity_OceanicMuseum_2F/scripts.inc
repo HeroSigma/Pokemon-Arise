@@ -18,42 +18,43 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	waitmovement 0
 	call_if_eq VAR_FACING, DIR_SOUTH, SlateportCity_OceanicMuseum_2F_EventScript_PlayerFaceGrunts
 	call_if_eq VAR_FACING, DIR_EAST, SlateportCity_OceanicMuseum_2F_EventScript_PlayerFaceGrunts
-	msgbox SlateportCity_OceanicMuseum_2F_Text_WellTakeThoseParts, MSGBOX_DEFAULT
 	call_if_ne VAR_FACING, DIR_EAST, SlateportCity_OceanicMuseum_2F_EventScript_SternFaceGrunts
-	msgbox SlateportCity_OceanicMuseum_2F_Text_SternWhoAreYou, MSGBOX_DEFAULT
-	msgbox SlateportCity_OceanicMuseum_2F_Text_WereTeamAqua, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_GruntA_DemandData, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_GruntB_PlansSurge, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Player_NotHappening, MSGBOX_DEFAULT
+	addobject LOCALID_OCEANIC_MUSEUM_2F_GREEN
+	applymovement LOCALID_OCEANIC_MUSEUM_2F_GREEN, SlateportCity_OceanicMuseum_2F_Movement_GreenEnter
+	waitmovement 0
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Green_JustInTime, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_OCEANIC_MUSEUM_2F_GRUNT_2, SlateportCity_OceanicMuseum_2F_Movement_GruntApproachToBattle
-	waitmovement 0
-	call_if_eq VAR_FACING, DIR_SOUTH, SlateportCity_OceanicMuseum_2F_EventScript_PlayerApproachGruntSouth
-	call_if_eq VAR_FACING, DIR_WEST, SlateportCity_OceanicMuseum_2F_EventScript_PlayerApproachGruntWest
-	trainerbattle_no_intro TRAINER_GRUNT_MUSEUM_1, SlateportCity_OceanicMuseum_2F_Text_Grunt1Defeat
-	msgbox SlateportCity_OceanicMuseum_2F_Text_BossGoingToBeFurious, MSGBOX_DEFAULT
+	multi_2_vs_2 TRAINER_GRUNT_MUSEUM_1, SlateportCity_OceanicMuseum_2F_Text_Grunt1Defeat, TRAINER_GRUNT_MUSEUM_2, SlateportCity_OceanicMuseum_2F_Text_Grunt2Defeat, PARTNER_GREEN
+	switch VAR_RESULT
+	case 1, SlateportCity_OceanicMuseum_2F_EventScript_MultiBattleWon
+	fadescreen FADE_TO_BLACK
+	special SetCB2WhiteOut
+	waitstate
+
+SlateportCity_OceanicMuseum_2F_EventScript_MultiBattleWon::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_GruntA_HowDidWeLose, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_GruntB_BossWontLikeThis, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_OCEANIC_MUSEUM_2F_GRUNT_2, SlateportCity_OceanicMuseum_2F_Movement_GruntDefeated
-	waitmovement 0
-	applymovement LOCALID_OCEANIC_MUSEUM_2F_GRUNT_1, SlateportCity_OceanicMuseum_2F_Movement_GruntApproachToBattle
-	waitmovement 0
-	msgbox SlateportCity_OceanicMuseum_2F_Text_LetMeTakeCareOfThis, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_GRUNT_MUSEUM_2, SlateportCity_OceanicMuseum_2F_Text_Grunt2Defeat
-	applymovement LOCALID_OCEANIC_MUSEUM_2F_GRUNT_1, SlateportCity_OceanicMuseum_2F_Movement_GruntDefeated
-	waitmovement 0
-	applymovement LOCALID_OCEANIC_MUSEUM_2F_GRUNT_1, Common_Movement_WalkInPlaceFasterDown
-	applymovement LOCALID_OCEANIC_MUSEUM_2F_GRUNT_2, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	msgbox SlateportCity_OceanicMuseum_2F_Text_MeddlingKid, MSGBOX_DEFAULT
-	closemessage
-	delay 35
+	delay 20
 	addobject LOCALID_OCEANIC_MUSEUM_2F_ARCHIE
 	applymovement LOCALID_OCEANIC_MUSEUM_2F_ARCHIE, SlateportCity_OceanicMuseum_2F_Movement_ArchieEnter
 	applymovement LOCALID_OCEANIC_MUSEUM_2F_GRUNT_2, SlateportCity_OceanicMuseum_2F_Movement_GruntMoveForArchie
+	applymovement LOCALID_OCEANIC_MUSEUM_2F_GREEN, SlateportCity_OceanicMuseum_2F_Movement_GreenFaceArchie
 	waitmovement 0
-	msgbox SlateportCity_OceanicMuseum_2F_Text_CameToSeeWhatsTakingSoLong, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Archie_Pathetic, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_OCEANIC_MUSEUM_2F_ARCHIE, SlateportCity_OceanicMuseum_2F_Movement_ArchieApproachPlayer
 	waitmovement 0
-	msgbox SlateportCity_OceanicMuseum_2F_Text_ArchieWarning, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Archie_Vision, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Green_BalanceRetort, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Player_ArchieThought, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Archie_LastCalm, MSGBOX_DEFAULT
 	closemessage
+	applymovement LOCALID_OCEANIC_MUSEUM_2F_GREEN, SlateportCity_OceanicMuseum_2F_Movement_GreenMakeRoom
+	waitmovement 0
 	savebgm MUS_DUMMY
 	fadedefaultbgm
 	fadescreen FADE_TO_BLACK
@@ -65,7 +66,20 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	setflag FLAG_HIDE_SLATEPORT_CITY_OCEANIC_MUSEUM_AQUA_GRUNTS
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	msgbox SlateportCity_OceanicMuseum_2F_Text_SternThankYouForSavingUs, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Stern_ThatWasArchie, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Green_OakWarnedAndPokenav, MSGBOX_DEFAULT
+	closemessage
+	delay 30
+	playfanfare MUS_REGISTER_MATCH_CALL
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Pokenav_RegisteredBrendanMay, MSGBOX_DEFAULT
+	waitfanfare
+	closemessage
+	delay 20
+	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Green_ContactsAndConnected, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Player_FormingSomething, MSGBOX_DEFAULT
+	msgbox SlateportCity_OceanicMuseum_2F_Text_Stern_HoennStandsChance, MSGBOX_DEFAULT
+	removeobject LOCALID_OCEANIC_MUSEUM_2F_GREEN
 	setvar VAR_0x8004, ITEM_DEVON_PARTS
 	call Common_EventScript_PlayerHandedOverTheItem
 	msgbox SlateportCity_OceanicMuseum_2F_Text_SternIveGotToGo, MSGBOX_DEFAULT
@@ -210,6 +224,26 @@ SlateportCity_OceanicMuseum_2F_Movement_GruntMoveForArchie:
 	walk_in_place_faster_up
 	step_end
 
+SlateportCity_OceanicMuseum_2F_Movement_GreenEnter:
+	@ Enter and stop behind the Aqua Grunts
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_in_place_faster_up
+	step_end
+
+SlateportCity_OceanicMuseum_2F_Movement_GreenFaceArchie:
+	face_right
+	step_end
+
+SlateportCity_OceanicMuseum_2F_Movement_GreenMakeRoom:
+	walk_left
+	walk_in_place_faster_left
+	step_end
+
 SlateportCity_OceanicMuseum_2F_EventScript_WaterQualitySample1::
 	msgbox SlateportCity_OceanicMuseum_2F_Text_WaterQualitySample1, MSGBOX_SIGN
 	end
@@ -289,6 +323,21 @@ SlateportCity_OceanicMuseum_2F_Text_WereTeamAqua:
 	.string "Our BOSS wants those parts!\n"
 	.string "Shut your yap and fork them over!$"
 
+SlateportCity_OceanicMuseum_2F_Text_GruntA_DemandData:
+	.string "AQUA GRUNT A: Hand it over, STERN!\n"
+	.string "That DEVON data belongs to AQUA now!$"
+
+SlateportCity_OceanicMuseum_2F_Text_GruntB_PlansSurge:
+	.string "AQUA GRUNT B: With this, our plans will surge\n"
+	.string "forward like the rising tide!$"
+
+SlateportCity_OceanicMuseum_2F_Text_Player_NotHappening:
+	.string "{PLAYER}: Not happening. Back off.$"
+
+SlateportCity_OceanicMuseum_2F_Text_Green_JustInTime:
+	.string "GREEN: Looks like I showed up just in time.\n"
+	.string "You're not facing them alone, {PLAYER}!$"
+
 SlateportCity_OceanicMuseum_2F_Text_Grunt1Defeat:
 	.string "Awaaaah!\n"
 	.string "A kid beat me!$"
@@ -300,6 +349,12 @@ SlateportCity_OceanicMuseum_2F_Text_BossGoingToBeFurious:
 SlateportCity_OceanicMuseum_2F_Text_LetMeTakeCareOfThis:
 	.string "Humph, sniveling wimp!\n"
 	.string "Let me take care of this!$"
+
+SlateportCity_OceanicMuseum_2F_Text_GruntA_HowDidWeLose:
+	.string "AQUA GRUNT A: How… how did we lose?!$"
+
+SlateportCity_OceanicMuseum_2F_Text_GruntB_BossWontLikeThis:
+	.string "AQUA GRUNT B: The boss… he's not going to like this!$"
 
 SlateportCity_OceanicMuseum_2F_Text_Grunt2Defeat:
 	.string "What?!\n"
@@ -315,6 +370,10 @@ SlateportCity_OceanicMuseum_2F_Text_CameToSeeWhatsTakingSoLong:
 	.string "I came to see what was taking so\n"
 	.string "long to snatch some parts, and you\l"
 	.string "simps are held up by a mere child?$"
+
+SlateportCity_OceanicMuseum_2F_Text_Archie_Pathetic:
+	.string "ARCHIE: Pathetic. Two against two, and still you fail.\n"
+	.string "You shame TEAM AQUA.$"
 
 SlateportCity_OceanicMuseum_2F_Text_ArchieWarning:
 	.string "We are TEAM AQUA,\n"
@@ -343,6 +402,26 @@ SlateportCity_OceanicMuseum_2F_Text_ArchieWarning:
 	.string "dearly!\p"
 	.string "And don't you forget it!$"
 
+SlateportCity_OceanicMuseum_2F_Text_Archie_Vision:
+	.string "ARCHIE: So… you're the ones meddling in my waters.\p"
+	.string "Strong, maybe. But strength without vision is nothing.\p"
+	.string "The world is drowning in imbalance.\n"
+	.string "The sea is its true master. And I'll see it restored.$"
+
+SlateportCity_OceanicMuseum_2F_Text_Green_BalanceRetort:
+	.string "GREEN: Balance? You call stealing and threatening people\n"
+	.string "balance? Don't make me laugh.$"
+
+SlateportCity_OceanicMuseum_2F_Text_Player_ArchieThought:
+	.string "{PLAYER}: (ARCHIE… the way he speaks… it's like the sea\n"
+	.string "itself is behind him. Dangerous, but not reckless.)$"
+
+SlateportCity_OceanicMuseum_2F_Text_Archie_LastCalm:
+	.string "ARCHIE: Hmph. You've got spirit. But spirit alone won't\n"
+	.string "stop the tide.\p"
+	.string "Enjoy this victory, children-it's the last calm before\n"
+	.string "the storm.$"
+
 SlateportCity_OceanicMuseum_2F_Text_SternThankYouForSavingUs:
 	.string "CAPT. STERN: You're…\n"
 	.string "Ah, okay, you're {PLAYER}{KUN}…\p"
@@ -350,6 +429,34 @@ SlateportCity_OceanicMuseum_2F_Text_SternThankYouForSavingUs:
 	.string "Thank you for saving us!\p"
 	.string "Oh, yes, I almost forgot that you\n"
 	.string "even brought the parts from DEVON!$"
+
+SlateportCity_OceanicMuseum_2F_Text_Stern_ThatWasArchie:
+	.string "CAPT. STERN: That was ARCHIE… leader of TEAM AQUA.\p"
+	.string "If he's moving openly now, HOENN is in grave danger.\p"
+	.string "Their interest in DEVON's oceanic data isn't good news.$"
+
+SlateportCity_OceanicMuseum_2F_Text_Green_OakWarnedAndPokenav:
+	.string "GREEN: Figures. OAK warned me about AQUA sniffing around\n"
+	.string "this research.\p"
+	.string "Oh, before I forget-BRENDAN and MAY asked me to pass\n"
+	.string "this on.$"
+
+SlateportCity_OceanicMuseum_2F_Text_Pokenav_RegisteredBrendanMay:
+	.string "{PLAYER} registered BRENDAN and MAY\n"
+	.string "in the POKéNAV.$"
+
+SlateportCity_OceanicMuseum_2F_Text_Green_ContactsAndConnected:
+	.string "GREEN: They're out in the field, tracking leads.\n"
+	.string "Now you've got their contacts. Guess that means we're\l"
+	.string "officially connected.$"
+
+SlateportCity_OceanicMuseum_2F_Text_Player_FormingSomething:
+	.string "{PLAYER}: (BRENDAN, MAY, GREEN… we're not just crossing\n"
+	.string "paths anymore. We're forming something bigger…) $"
+
+SlateportCity_OceanicMuseum_2F_Text_Stern_HoennStandsChance:
+	.string "CAPT. STERN: Then perhaps HOENN stands a chance.\n"
+	.string "Thank you, both of you.$"
 
 SlateportCity_OceanicMuseum_2F_Text_SternIveGotToGo:
 	.string "CAPT. STERN: Whoops!\n"

@@ -3,8 +3,73 @@ DewfordTown_MapScripts::
 	.byte 0
 
 DewfordTown_OnTransition:
-	setflag FLAG_VISITED_DEWFORD_TOWN
-	end
+    setflag FLAG_VISITED_DEWFORD_TOWN
+    end
+
+DewfordTown_EventScript_PlayBlueMusic::
+    playbgm MUS_ENCOUNTER_BRENDAN, TRUE
+    return
+
+DewfordTown_EventScript_RestoreBgm::
+    savebgm MUS_DUMMY
+    fadedefaultbgm
+    return
+
+// Blue encounter at Pokécenter entrance
+DewfordTown_EventScript_Blue::
+    lockall
+    faceplayer
+    @ Temporarily skip encounter music to rule out timing issues
+    @call DewfordTown_EventScript_PlayBlueMusic
+    @ Ensure battle does not auto-skip due to leftover trainer flag
+    cleartrainerflag TRAINER_BLUE_DEWFORD
+    goto_if_set FLAG_DEFEATED_BLUE_DEWFORD, DewfordTown_EventScript_Blue_Post
+    msgbox DewfordTown_Text_Blue_Intro1, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Player_WhoAreYou, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Blue_Intro2, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Player_Internal1, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Blue_Intro3, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Player_Internal2, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Blue_Intro4, MSGBOX_DEFAULT
+    closemessage
+    delay 10
+    trainerbattle_no_intro TRAINER_BLUE_DEWFORD, DewfordTown_Text_Blue_Defeat
+    setflag FLAG_DEFEATED_BLUE_DEWFORD
+    goto DewfordTown_EventScript_Blue_After
+    end
+
+DewfordTown_EventScript_Blue_Post::
+    msgbox DewfordTown_Text_Blue_PostBattle3, MSGBOX_DEFAULT
+    call DewfordTown_EventScript_RestoreBgm
+    releaseall
+    end
+
+DewfordTown_EventScript_Blue_After::
+    msgbox DewfordTown_Text_Blue_After1, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Player_After1, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Blue_After2, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Player_After2, MSGBOX_DEFAULT
+    msgbox DewfordTown_Text_Blue_After3, MSGBOX_DEFAULT
+    applymovement LOCALID_DEWFORD_BLUE, DewfordTown_Movement_Blue_ExitToGraniteCave
+    waitmovement 0
+    removeobject LOCALID_DEWFORD_BLUE
+    call DewfordTown_EventScript_RestoreBgm
+    releaseall
+    end
+
+@ Blue exits toward Route 106 (Granite Cave direction)
+DewfordTown_Movement_Blue_ExitToGraniteCave:
+    walk_right
+	walk_right
+	walk_right
+    walk_up
+    walk_up
+    walk_up
+    walk_up
+    walk_up
+    walk_up
+    walk_up
+    step_end
 
 DewfordTown_EventScript_Briney::
 	lock
@@ -112,11 +177,31 @@ DewfordTown_EventScript_FishingNotSoGood::
 
 DewfordTown_EventScript_SailToPetalburg::
 	call EventScript_BackupMrBrineyLocation
-	setobjectsubpriority LOCALID_DEWFORD_BRINEY, MAP_DEWFORD_TOWN, 0
 	setobjectsubpriority LOCALID_PLAYER, MAP_DEWFORD_TOWN, 0
-	applymovement LOCALID_DEWFORD_BRINEY, DewfordTown_Movement_BrineyBoardBoat
+	applymovement LOCALID_PLAYER, DewfordTown_Movement_PlayerBoardBoat
 	waitmovement 0
-	removeobject LOCALID_DEWFORD_BRINEY
+	hideobjectat LOCALID_PLAYER, MAP_DEWFORD_TOWN
+	call Common_EventScript_PlayBrineysBoatMusic
+	applymovement LOCALID_DEWFORD_BOAT, DewfordTown_Movement_SailToPetalburg
+	applymovement LOCALID_PLAYER, DewfordTown_Movement_SailToPetalburg
+	waitmovement 0
+	showobjectat LOCALID_PLAYER, MAP_ROUTE104
+	call Common_EventScript_StopBrineysBoatMusic
+	applymovement LOCALID_PLAYER, DewfordTown_Movement_ExitBoatPetalburg
+	waitmovement 0
+	showobjectat LOCALID_PLAYER, MAP_ROUTE104
+	clearflag FLAG_HIDE_BRINEYS_HOUSE_MR_BRINEY
+	clearflag FLAG_HIDE_BRINEYS_HOUSE_PEEKO
+	clearflag FLAG_HIDE_ROUTE_104_MR_BRINEY_BOAT
+	setflag FLAG_HIDE_MR_BRINEY_BOAT_DEWFORD_TOWN
+	hideobjectat LOCALID_DEWFORD_BOAT, MAP_DEWFORD_TOWN
+	setvar VAR_BOARD_BRINEY_BOAT_STATE, 2
+	resetobjectsubpriority LOCALID_PLAYER, MAP_DEWFORD_TOWN
+	warp MAP_ROUTE104_MR_BRINEYS_HOUSE, 5, 4
+	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
+	waitstate
+	release
+	end
 	applymovement LOCALID_PLAYER, DewfordTown_Movement_PlayerBoardBoat
 	waitmovement 0
 	hideobjectat LOCALID_PLAYER, MAP_DEWFORD_TOWN
@@ -144,11 +229,37 @@ DewfordTown_EventScript_SailToPetalburg::
 
 DewfordTown_EventScript_SailToSlateport::
 	call EventScript_BackupMrBrineyLocation
-	setobjectsubpriority LOCALID_DEWFORD_BRINEY, MAP_DEWFORD_TOWN, 0
 	setobjectsubpriority LOCALID_PLAYER, MAP_DEWFORD_TOWN, 1
-	applymovement LOCALID_DEWFORD_BRINEY, DewfordTown_Movement_BrineyBoardBoat
+	applymovement LOCALID_PLAYER, DewfordTown_Movement_PlayerBoardBoat
 	waitmovement 0
-	removeobject LOCALID_DEWFORD_BRINEY
+	hideobjectat LOCALID_PLAYER, MAP_DEWFORD_TOWN
+	call Common_EventScript_PlayBrineysBoatMusic
+	applymovement LOCALID_DEWFORD_BOAT, DewfordTown_Movement_SailToSlateport
+	applymovement LOCALID_PLAYER, DewfordTown_Movement_SailToSlateport
+	waitmovement 0
+	call Common_EventScript_StopBrineysBoatMusic
+	showobjectat LOCALID_PLAYER, MAP_ROUTE109
+	applymovement LOCALID_PLAYER, DewfordTown_Movement_ExitBoatSlateport
+	waitmovement 0
+	setobjectxyperm LOCALID_ROUTE109_BRINEY, 21, 26
+	addobject LOCALID_ROUTE109_BRINEY
+	setobjectsubpriority LOCALID_ROUTE109_BRINEY, MAP_ROUTE109, 0
+	applymovement LOCALID_ROUTE109_BRINEY, DewfordTown_Movement_BrineyExitBoat
+	waitmovement 0
+	clearflag FLAG_HIDE_ROUTE_109_MR_BRINEY
+	addobject LOCALID_ROUTE109_BOAT
+	clearflag FLAG_HIDE_ROUTE_109_MR_BRINEY_BOAT
+	setflag FLAG_HIDE_MR_BRINEY_BOAT_DEWFORD_TOWN
+	hideobjectat LOCALID_DEWFORD_BOAT, MAP_DEWFORD_TOWN
+	call_if_unset FLAG_DELIVERED_DEVON_GOODS, DewfordTown_EventScript_LandedSlateportDeliverGoods
+	call_if_set FLAG_DELIVERED_DEVON_GOODS, DewfordTown_EventScript_LandedSlateport
+	closemessage
+	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
+	resetobjectsubpriority LOCALID_PLAYER, MAP_DEWFORD_TOWN
+	resetobjectsubpriority LOCALID_ROUTE109_BRINEY, MAP_ROUTE109
+	copyobjectxytoperm LOCALID_ROUTE109_BRINEY
+	release
+	end
 	applymovement LOCALID_PLAYER, DewfordTown_Movement_PlayerBoardBoat
 	waitmovement 0
 	hideobjectat LOCALID_PLAYER, MAP_DEWFORD_TOWN
@@ -623,8 +734,8 @@ DewfordTown_EventScript_CancelNewTrendyPhrase::
 	end
 
 DewfordTown_EventScript_PhraseNotTrendyEnough::
-	msgbox DewfordTown_Text_XHuhIThinkYIsCool, MSGBOX_DEFAULT
-	release
+    msgbox DewfordTown_Text_XHuhIThinkYIsCool, MSGBOX_DEFAULT
+    release
 	end
 
 DewfordTown_Text_TinyIslandCommunity:
@@ -786,6 +897,76 @@ DewfordTown_Text_HearOfAnyTrendsComeShareWithMe:
 	.string "trends, come share them with me, okay?$"
 
 DewfordTown_Text_YeahDefinitionOfInRightNow:
-	.string "Yeah, absolutely right!\p"
-	.string "“{STR_VAR_1}” is the\n"
-	.string "definition of “in” right now.$"
+    .string "Yeah, absolutely right!\p"
+    .string "“{STR_VAR_1}” is the\n"
+    .string "definition of “in” right now.$"
+
+// Blue encounter text
+// Blue encounter text
+DewfordTown_Text_Blue_Intro1:
+	.string "{COLOR BLUE}BLUE: Tch. Another trainer, huh? ...You.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}Yeah, you've got the look of someone\nworth testing.{COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: Tch. Another trainer, huh?\n...You.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}Yeah, you've got the look of someone\nworth testing.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Player_WhoAreYou:
+	.string "{COLOR GREEN}{PLAYER}: Who are you supposed to be?{COLOR DARK_GRAY}$"
+DewfordTown_Text_Blue_Intro2:
+	.string "{COLOR BLUE}BLUE: The name's Blue.\nI was a Champion once - KANTO's best.\nDon't forget it.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}(He smirks, but his eyes are dead serious.){COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: The name's Blue.\nI was a Champion once - KANTO's best.\nDon't forget it.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}(He smirks, but his eyes are dead serious.){COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Player_Internal1:
+	.string "{COLOR DARK_GRAY}(Champion...?\nHe doesn't act like he's bragging,\nmore like it's a fact carved into stone.){COLOR DARK_GRAY}\p"
+	.string "{COLOR GREEN}{PLAYER}: I'm {PLAYER}. Just arrived in HOENN.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_Intro3:
+	.string "{COLOR BLUE}BLUE: Hah. Figures.\nSeems like everyone's showing up here lately.\nGREEN, RED... and now you.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}(He pauses, narrowing his eyes.){COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}And the weird part?\nI feel like I've seen you before.\nFamiliar, but I don't know why.{COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: Hah. Figures.\nSeems like everyone's showing up here lately.\nGREEN, RED... and now you.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}(He pauses, narrowing his eyes.){COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}And the weird part?\nI feel like I've seen you before.\nFamiliar, but I don't know why.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Player_Internal2:
+	.string "{COLOR DARK_GRAY}(...Again with that feeling.\nWhy do I keep hearing this from people\nI've only just met?){COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_Intro4:
+	.string "{COLOR BLUE}BLUE: Listen.\nI'm starting fresh here in HOENN.\nNew land, new rules, new fights.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}If you've already battled GREEN,\nthen I need to know how far behind I am.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}(He cracks his knuckles, smirking again.){COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: Listen.\nI'm starting fresh here in HOENN.\nNew land, new rules, new fights.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}If you've already battled GREEN,\nthen I need to know how far behind I am.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}(He cracks his knuckles, smirking again.){COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_LetsBattle:
+	.string "{COLOR BLUE}BLUE: So, let's see what you've got.{COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: So, let's see what you've got.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_Defeat:
+	.string "{COLOR BLUE}BLUE: Hmph. Not bad at all.\nYou're sharper than most I've run into here.{COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: Hmph. Not bad at all.\nYou're sharper than most I've run into here.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_After1:
+DewfordTown_Text_Player_After1:
+	.string "{COLOR DARK_GRAY}(He really is strong... but something about him feels familiar. Why?){COLOR DARK_GRAY}$"
+	.string "{COLOR GREEN}{PLAYER}: ...You fight like you're already a step ahead.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_After2:
+	.string "{COLOR BLUE}BLUE: (He gives a small grin,\nbut there's a shadow behind his eyes.){COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}That's because I usually am.\nStill, I'll admit - this place feels... unstable.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}If RED really is here too,\nyou'll know the second you meet him.\nRED doesn't need an introduction.{COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: (He gives a small grin,\nbut there's a shadow behind his eyes.){COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}That's because I usually am.\nStill, I'll admit - this place feels...\nunstable.{COLOR DARK_GRAY}\p"
+	.string "{COLOR BLUE}If RED really is here too,\nyou'll know the second you meet him.\nRED doesn't need an introduction.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Player_After2:
+	.string "{COLOR DARK_GRAY}(...RED again.\nFirst GREEN, now BLUE.\nThese names are etched into me somehow,\nbut I can't remember why.){COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_After3:
+	.string "{COLOR BLUE}BLUE: Stay sharp.\nHOENN's going to test us all.\nNext time, I won't be holding back.{COLOR DARK_GRAY}$"
+	.string "{COLOR BLUE}BLUE: Stay sharp.\nHOENN's going to test us all.\nNext time, I won't be holding back.{COLOR DARK_GRAY}$"
+
+DewfordTown_Text_Blue_PostBattle3:
+	.string "{COLOR DARK_GRAY}(BLUE, GREEN, RED...\nThey're all here. But why?){COLOR DARK_GRAY}$"

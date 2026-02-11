@@ -19,13 +19,13 @@ FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfx::
 	return
 
 FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_BRENDAN
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_BRENDAN
 	return
 
 FallarborTown_BattleTentBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_MAY
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_MAY
 	return
 
 FallarborTown_BattleTentBattleRoom_OnFrame:
@@ -235,4 +235,3 @@ FallarborTown_BattleTentBattleRoom_EventScript_SetUpObjects::
 	removeobject LOCALID_FALLARBOR_TENT_BATTLE_OPPONENT
 	setvar VAR_TEMP_1, 1
 	end
-

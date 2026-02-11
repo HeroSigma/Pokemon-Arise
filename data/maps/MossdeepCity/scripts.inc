@@ -1,14 +1,21 @@
 MossdeepCity_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_OnTransition
-	.byte 0
+        map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_OnTransition
+        map_script MAP_SCRIPT_ON_RESUME, MossdeepCity_OnResume
+        .byte 0
 
 MossdeepCity_OnTransition:
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_1
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_2
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_3
-	clearflag FLAG_MOSSDEEP_GYM_SWITCH_4
-	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
-	end
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_1
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_2
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_3
+        clearflag FLAG_MOSSDEEP_GYM_SWITCH_4
+        call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
+        call_if_set FLAG_CAUGHT_JIRACHI, MossdeepCity_HideJirachi
+        call_if_unset FLAG_CAUGHT_JIRACHI, MossdeepCity_TryShowJirachi
+        end
+
+MossdeepCity_OnResume:
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, MossdeepCity_TryRemoveJirachi
+        end
 
 MossdeepCity_EventScript_PokefanF::
 	lock
@@ -53,8 +60,57 @@ MossdeepCity_EventScript_Woman::
 	end
 
 MossdeepCity_EventScript_WhiteRock::
-	msgbox MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN
-	end
+        msgbox MossdeepCity_Text_ItsAWhiteRock, MSGBOX_SIGN
+        end
+
+MossdeepCity_HideJirachi::
+        setflag FLAG_HIDE_JIRACHI
+        return
+
+MossdeepCity_TryShowJirachi::
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        checkflag FLAG_CAUGHT_MEW
+        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+        checkspecies SPECIES_MEW
+        goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+        clearflag FLAG_HIDE_JIRACHI
+        return
+
+MossdeepCity_TryRemoveJirachi::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_MOSSDEEP_JIRACHI
+        return
+
+MossdeepCity_Jirachi::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_JIRACHI, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, MossdeepCity_DefeatedJirachi
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, MossdeepCity_RanFromJirachi
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, MossdeepCity_RanFromJirachi
+        setflag FLAG_CAUGHT_JIRACHI
+        release
+        end
+
+MossdeepCity_DefeatedJirachi::
+        setvar VAR_0x8004, SPECIES_JIRACHI
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+MossdeepCity_RanFromJirachi::
+        setvar VAR_0x8004, SPECIES_JIRACHI
+        goto Common_EventScript_LegendaryFlewAway
+        end
 
 MossdeepCity_EventScript_GymSign::
 	msgbox MossdeepCity_Text_GymSign, MSGBOX_SIGN

@@ -30,11 +30,11 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfx::
 	return
 
 BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_BRENDAN
 	return
 
 BattleFrontier_BattleDomeBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_MAY
 	return
 
 BattleFrontier_BattleDomeBattleRoom_OnFrame:
@@ -445,10 +445,8 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_TuckerDraw::
 BattleFrontier_BattleDomeBattleRoom_EventScript_DoDomeBattle::
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, FALSE
 	special HealPlayerParty
-	setvar VAR_0x8004, SPECIAL_BATTLE_DOME
-	setvar VAR_0x8005, 0
 	setvar VAR_TEMP_9, 1
-	special DoSpecialTrainerBattle
+	dofacilitytrainerbattle FACILITY_BATTLE_DOME
 	waitstate
 	setvar VAR_TEMP_9, 0
 	dome_restorehelditems

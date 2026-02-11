@@ -1,0 +1,31 @@
+{
+  "id": "MAP_ROUTE222",
+  "name": "Route222",
+  "layout": "LAYOUT_ROUTE222",
+  "music": "MUS_RG_ROUTE24",
+  "region_map_section": "MAPSEC_ROUTE_222",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_SUNYSHORE_CITY",
+      "offset": -22,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_VALOR_LAKEFRONT",
+      "offset": -26,
+      "direction": "left"
+    }
+  ],
+  "object_events": [],
+  "warp_events": [],
+  "coord_events": [],
+  "bg_events": []
+}

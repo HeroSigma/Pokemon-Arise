@@ -1,12 +1,19 @@
 MossdeepCity_SpaceCenter_2F_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_SpaceCenter_2F_OnTransition
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, MossdeepCity_SpaceCenter_2F_OnFrame
-	.byte 0
+        map_script MAP_SCRIPT_ON_TRANSITION, MossdeepCity_SpaceCenter_2F_OnTransition
+        map_script MAP_SCRIPT_ON_RESUME, MossdeepCity_SpaceCenter_2F_OnResume
+        map_script MAP_SCRIPT_ON_FRAME_TABLE, MossdeepCity_SpaceCenter_2F_OnFrame
+        .byte 0
 
 MossdeepCity_SpaceCenter_2F_OnTransition:
-	call_if_eq VAR_MOSSDEEP_CITY_STATE, 2, MossdeepCity_SpaceCenter_2F_EventScript_MoveCivilians
-	call_if_eq VAR_MOSSDEEP_SPACE_CENTER_STATE, 2, MossdeepCity_SpaceCenter_2F_EventScript_MoveDefeatedGrunts
-	end
+        call_if_eq VAR_MOSSDEEP_CITY_STATE, 2, MossdeepCity_SpaceCenter_2F_EventScript_MoveCivilians
+        call_if_eq VAR_MOSSDEEP_SPACE_CENTER_STATE, 2, MossdeepCity_SpaceCenter_2F_EventScript_MoveDefeatedGrunts
+        call_if_set FLAG_CAUGHT_DEOXYS_RS, MossdeepCity_SpaceCenter_2F_HideDeoxys
+        call_if_unset FLAG_CAUGHT_DEOXYS_RS, MossdeepCity_SpaceCenter_2F_TryShowDeoxys
+        end
+
+MossdeepCity_SpaceCenter_2F_OnResume:
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, MossdeepCity_SpaceCenter_2F_TryRemoveDeoxys
+        end
 
 MossdeepCity_SpaceCenter_2F_EventScript_MoveCivilians::
 	clearflag FLAG_INTERACTED_WITH_STEVEN_SPACE_CENTER
@@ -486,7 +493,52 @@ MossdeepCity_SpaceCenter_2F_Text_StevenThankYouComeSeeMeAtHome:
 	.string "{PLAYER}{KUN}, thank you.\p"
 	.string "I have something to give you as\n"
 	.string "thanks for your support.\p"
-	.string "Please come see me at home\n"
-	.string "after this.\p"
-	.string "Oh, yes, I don't live in RUSTBORO CITY.\n"
-	.string "I live right here on this island.$"
+        .string "Please come see me at home\n"
+        .string "after this.\p"
+        .string "Oh, yes, I don't live in RUSTBORO CITY.\n"
+        .string "I live right here on this island.$"
+
+MossdeepCity_SpaceCenter_2F_HideDeoxys::
+        setflag FLAG_HIDE_DEOXYS
+        return
+
+MossdeepCity_SpaceCenter_2F_TryShowDeoxys::
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
+        clearflag FLAG_HIDE_DEOXYS
+        return
+
+MossdeepCity_SpaceCenter_2F_TryRemoveDeoxys::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_SPACE_CENTER_DEOXYS
+        return
+
+MossdeepCity_SpaceCenter_2F_Deoxys::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_DEOXYS, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_DEOXYS, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, MossdeepCity_SpaceCenter_2F_DefeatedDeoxys
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, MossdeepCity_SpaceCenter_2F_RanFromDeoxys
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, MossdeepCity_SpaceCenter_2F_RanFromDeoxys
+        setflag FLAG_CAUGHT_DEOXYS_RS
+        release
+        end
+
+MossdeepCity_SpaceCenter_2F_DefeatedDeoxys::
+        setvar VAR_0x8004, SPECIES_DEOXYS
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+MossdeepCity_SpaceCenter_2F_RanFromDeoxys::
+        setvar VAR_0x8004, SPECIES_DEOXYS
+        goto Common_EventScript_LegendaryFlewAway
+        end

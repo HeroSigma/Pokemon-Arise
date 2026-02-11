@@ -95,7 +95,7 @@ LittlerootTown_BrendansHouse_1F_EventScript_YoureNewNeighbor::
 	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_BrendansHouse_1F_Movement_RivalMomApproach
 	waitmovement 0
 	special GetRivalSonDaughterString
-	msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
+	msgbox RivalsHouse_1F_Text_MomGreeting_BrendanUpstairs, MSGBOX_DEFAULT
 	setflag FLAG_MET_RIVAL_MOM
 	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 2
 	releaseall
@@ -283,97 +283,90 @@ LittlerootTown_BrendansHouse_1F_Movement_BrendanGoUpstairs2:
 	walk_up
 	step_end
 
-PlayersHouse_1F_Text_IsntItNiceInHere::
-	.string "SELENE: See, {PLAYER}?\p"
-	.string "Isn't it nice in here?\p"
+PlayersHouse_1F_Text_IsntItNiceInHere:
+	.string "MOM: See, {PLAYER}? Everything’s all set.$"
+
+PlayersHouse_1F_Text_MoversPokemonGoSetClock:
+	.string "Your room is upstairs--clock, PC,\n"
+	.string "even the bed's made.\pGo on and\n"
+	.string "check it out, make it yours again.\p"
+	.string "{COLOR GREEN}{PLAYER}: ...Feels strange,\n"
+	.string "starting over.\pBack home, Father\n"
+	.string "always said there was work left\n"
+	.string "undone.{COLOR DARK_GRAY}\pMOM: You\n"
+	.string "always bring him up when we move,\n"
+	.string "don't you?\pMOM: Caelum would be\n"
+	.string "glad to know you still think of\n"
+	.string "him.\pMOM: Now, no more brooding.\n"
+	.string "Go upstairs and settle in.\p"
+	.string "{COLOR GREEN}{PLAYER}: Right. My room,\n"
+	.string "my space... my beginning.{COLOR DARK_GRAY}$"
+
+PlayersHouse_1F_Text_ArentYouInterestedInRoom:
+	.string "MOM: Well, {PLAYER}?\pAren't you\n"
+	.string "interested in seeing your very own\n"
+	.string "room?\p$"
+
+PlayersHouse_1F_Text_GoSetTheClock:
+	.string "MOM: Your clock’s upstairs- set it\n"
+	.string "when you’re ready, {PLAYER}.\l"
+	.string "Make the room yours.$"
+
+PlayersHouse_1F_Text_OhComeQuickly:
+	.string "MOM: Oh! {PLAYER}, {PLAYER}!\n"
+	.string "Quick! Come quickly!$"
+
+PlayersHouse_1F_Text_MaybeDadWillBeOn:
+	.string "We interrupt with a special report.\p"
 	.string "$"
 
-PlayersHouse_1F_Text_MoversPokemonGoSetClock::
-	.string "SELENE: The movers' Pokémon\p"
-	.string "handled everything.\p"
-	.string "So convenient!\p"
-	.string "{PLAYER}, your room's upstairs.\p"
-	.string "Go take a look, dear.\p"
-	.string "Your dad got you a new clock\p"
-	.string "for the move.\p"
-	.string "Don't forget to set it!$"
-
-PlayersHouse_1F_Text_ArentYouInterestedInRoom::
-	.string "SELENE: {PLAYER}?\p"
-	.string "Aren't you curious about\p"
-	.string "your room?$"
-
-PlayersHouse_1F_Text_GoSetTheClock::
-	.string "SELENE: {PLAYER}, honey...\p"
-	.string "Please go set the clock\p"
-	.string "in your room.\p"
-	.string "It's waiting for you.$"
-
-PlayersHouse_1F_Text_OhComeQuickly::
-	.string "SELENE: Oh! {PLAYER}, {PLAYER}!\p"
-	.string "Quick! Come quickly!\p"
+// Hoenn-only split broadcast text
+PlayersHouse_1F_Text_TVHoennCollab_Intro:
+	.string "TV ANNOUNCER:\n"
+	.string "Today’s headline: A joint project\n"
+	.string "between HOENN’s DEVON\l"
+	.string "CORPORATION and KANTO’s\l"
+	.string "SILPH COMPANY.\p"
+	.string "TV ANNOUNCER:\n"
+	.string "The two giants announce a\l"
+	.string "historic collaboration, building\l"
+	.string "a new link between the regions.\p"
+	.string "TV ANNOUNCER:\n"
+	.string "Their goal: a connected future\l"
+	.string "for research, trade, and-\p"
 	.string "$"
 
-PlayersHouse_1F_Text_TVNormal::
-	.string "A news report is playing...\p"
-	.string "ANCHOR: ...and in today's sports,\p"
-	.string "the Battle Frontier is hosting\p"
-	.string "an exhibition match!\p"
-	.string "$"
+PlayersHouse_1F_Text_TVHoennCollab_Distortion:
+	.string "TV ANNOUNCER:\n"
+	.string "-wait, this isn’t- we’re\l"
+	.string "seeing sudden distortions\l"
+	.string "on site!\p"
+	.string "TV ANNOUNCER:\n"
+	.string "Portals- tearing open-\l"
+	.string "POKéMON are pouring through!\l"
+	.string "Security- everyone evacu-!\p"
+	.string "The TV bursts into static.$"
 
-PlayersHouse_1F_Text_MaybeDadWillBeOn::
-	.string "SELENE: Look! It's the Battle Frontier!\p"
-	.string "Maybe your dad will be on!\p"
-	.string "$"
-
-PlayersHouse_1F_Text_TVInterruption::
-	.string "ANCHOR: Wait--something's happening...\p"
-	.string "Reports of a massive energy surge!\p"
-	.string "The sky above the Frontier is...\p"
-	.string "tearing open!\p"
-	.string "A rift--it's swallowing the arena!\p"
-	.string "Trainers and Pokémon are--\p"
-	.string "$"
-
-PlayersHouse_1F_Text_PlayerAndSelene_Shock::
-	.string "SELENE: No... it couldn't be...\p"
-	.string "{PLAYER}...\p"
-	.string "$"
-
-PlayersHouse_1F_Text_Selene_Hope::
-	.string "SELENE: I hope Prof. Cae-\p"
-	.string "static crackles loudly\p"
-	.string "-is okay...\p"
-	.string "$"
-
-PlayersHouse_1F_Text_TVStatic::
-	.string "The screen fills with static.\p"
-	.string "The broadcast cuts out completely.\p"
-	.string "$"
-
-PlayersHouse_1F_Text_Selene_Aftermath::
-	.string "SELENE: ...What was that?\p"
-	.string "A rift... right there...\p"
-	.string "This isn't normal.\p"
-	.string "$"
-
-PlayersHouse_1F_Text_ItsOverWeMissedHim::
-	.string "SELENE: The broadcast... it's gone.\p"
-	.string "Your dad was at the Frontier...\p"
-	.string "I have to know if he's okay.\p"
-	.string "Please, {PLAYER}... hurry.\p"
-	.string "$"
-
-PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor::
-	.string "SELENE: ...{PLAYER}.\p"
-	.string "One of your dad's old friends\p"
-	.string "lives right next door.\p"
-	.string "Prof. Birch.\p"
-	.string "Go over and introduce yourself.\p"
-	.string "He might know something...\p"
-	.string "$"
+PlayersHouse_1F_Text_ItsOverWeMissedHim:
+	.string "{COLOR GREEN}{PLAYER}: That can’t be…{COLOR DARK_GRAY}\p"
+	.string "{COLOR GREEN}({COLOR DARK_GRAY}Is this the uneasy\l"
+	.string "feeling I’ve been carrying…\p"
+	.string "or something even worse?{COLOR DARK_GRAY})$"
 
 
+PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
+	.string "MOM: No… it couldn’t be, could it?\p"
+	.string "MOM: Caelum always warned his\l"
+	.string "associates something like this\l"
+	.string "might happen.\p"
+	.string "MOM: Speaking of which- his\l"
+	.string "colleague lives right next door\l"
+	.string "here in LITTLEROOT.\p"
+	.string "MOM: Professor Birch. You two\l"
+	.string "spoke on the phone while we were\l"
+	.string "in the truck, remember?\p"
+	.string "MOM: Go on, {PLAYER}. Meet him\l"
+	.string "at his lab. He’ll be waiting.$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"
@@ -417,8 +410,27 @@ PlayersHouse_1F_Text_Vigoroth2:
 	.string "Huggoh, uggo uggo…$"
 
 PlayersHouse_1F_Text_ReportFromPetalburgGym:
-	.string "INTERVIEWER: …We brought you this\n"
-	.string "report from in front of PETALBURG GYM.$"
+	.string "TV ANNOUNCER:\n"
+	.string "Today’s headline: A joint project\n"
+	.string "between HOENN’s DEVON CORPORATION\n"
+	.string "and KANTO’s SILPH COMPANY.\p"
+	.string "TV ANNOUNCER:\n"
+	.string "The two giants announce a historic\n"
+	.string "collaboration, building a new link\n"
+	.string "between the regions.\p"
+	.string "TV ANNOUNCER:\n"
+	.string "Their goal: a connected future\n"
+	.string "for research, trade, and-\p"
+	.string "The screen flickers.\p"
+	.string "Strange purple static washes over the TV feed.\p"
+	.string "TV ANNOUNCER:\n"
+	.string "-wait, this isn’t- we’re seeing\p"
+	.string "sudden distortions on site!\p"
+	.string "TV ANNOUNCER:\n"
+	.string "Portals- tearing open- POKéMON\p"
+	.string "are pouring through! Security-\p"
+	.string "everyone evacu-!\p"
+	.string "The TV bursts into static.$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
 	.string "There is a movie on TV.\p"
@@ -463,6 +475,19 @@ PlayersHouse_1F_Text_DadShouldStayLonger:
 
 PlayersHouse_1F_Text_IsThatABreakingStory:
 	.string "MOM: Is that a breaking news story?$"
+
+RivalsHouse_1F_Text_MomGreeting_BrendanUpstairs:
+	.string "MOM: {PLAYER}? After eight years!\p"
+	.string "PLAYER: Hi, Mrs. Birch!\p"
+	.string "MOM: You used to play with BRENDAN and\n"
+	.string "MAY.\p"
+	.string "MOM: Back when you lived here in\n"
+	.string "LITTLEROOT.\p"
+	.string "PLAYER: Yeah. I remember.\p"
+	.string "MOM: BRENDAN is upstairs in their room.\p"
+	.string "MOM: MAY stepped out a minute ago.\p"
+	.string "PLAYER: I'll say hello.\p"
+	.string "MOM: Go on up, dear.$"
 
 PlayersHouse_1F_Text_LatiEmergencyNewsFlash:
 	.string "We bring you this emergency\n"

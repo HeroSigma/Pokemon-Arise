@@ -1,0 +1,31 @@
+{
+  "id": "MAP_CELADON_CITY",
+  "name": "CeladonCity",
+  "layout": "LAYOUT_CELADON_CITY",
+  "music": "MUS_RG_CELADON",
+  "region_map_section": "MAPSEC_CELADON_CITY",
+  "requires_flash": false,
+  "weather": "WEATHER_SUNNY",
+  "map_type": "MAP_TYPE_CITY",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ROUTE7",
+      "offset": 10,
+      "direction": "right"
+    },
+    {
+      "map": "MAP_ROUTE16",
+      "offset": 10,
+      "direction": "left"
+    }
+  ],
+  "object_events": [],
+  "warp_events": [],
+  "coord_events": [],
+  "bg_events": []
+}

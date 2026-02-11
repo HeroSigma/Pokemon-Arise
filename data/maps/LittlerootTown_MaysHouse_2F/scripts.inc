@@ -1,24 +1,93 @@
+
+
 LittlerootTown_MaysHouse_2F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_MaysHouse_2F_OnTransition
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_MaysHouse_2F_OnWarp
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_MaysHouse_2F_OnFrame
 	.byte 0
 
-LittlerootTown_MaysHouse_2F_OnTransition:
-	checkplayergender
-	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_2F_EventScript_CheckIntroStateForMay
-	goto LittlerootTown_MaysHouse_2F_EventScript_SkipIntroCheck
+LittlerootTown_MaysHouse_2F_OnFrame:
+	.2byte 0
 
-LittlerootTown_MaysHouse_2F_EventScript_CheckIntroStateForMay::
-	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 7, LittlerootTown_MaysHouse_2F_EventScript_SetReadyToMeetMay
+LittlerootTown_MaysHouse_2F_EventScript_ShowZRingBall::
+	checkitem ITEM_Z_POWER_RING, 1
+	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_MaysHouse_2F_EventScript_ShowZRingBallRet
+	goto_if_set FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_2F_ZRING_BALL, LittlerootTown_MaysHouse_2F_EventScript_SpawnZRingBall
+LittlerootTown_MaysHouse_2F_EventScript_ShowZRingBallRet:
 	return
 
-LittlerootTown_MaysHouse_2F_EventScript_SkipIntroCheck::
+LittlerootTown_MaysHouse_2F_EventScript_SpawnZRingBall::
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_2F_ZRING_BALL
+	addobject LOCALID_MAYS_HOUSE_2F_ZRING_BALL
+	return
+
+LittlerootTown_MaysHouse_2F_OnTransition:
 	call_if_lt VAR_LITTLEROOT_RIVAL_STATE, 2, LittlerootTown_MaysHouse_2F_EventScript_CheckSetReadyToMeetMay
 	call_if_ge VAR_LITTLEROOT_RIVAL_STATE, 3, LittlerootTown_MaysHouse_2F_EventScript_CheckShouldUpdateMayPos
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
 	end
+
+// Brief flicker when arriving upstairs to hint at the Poke Ball
+LittlerootTown_MaysHouse_2F_EventScript_IntroFlicker::
+	lockall
+	msgbox LittlerootTown_MaysHouse_2F_Text_FlickerThought, MSGBOX_DEFAULT
+	releaseall
+	return
+
+// Extra Poke Ball: grant Z-Power Ring with flavor dialogue
+LittlerootTown_MaysHouse_2F_EventScript_ZRingBall::
+	lockall
+	checkitem ITEM_Z_POWER_RING, 1
+	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_MaysHouse_2F_EventScript_ZRingBall_Empty
+	msgbox LittlerootTown_MaysHouse_2F_Text_PlayerBallSpot, MSGBOX_DEFAULT
+	msgbox LittlerootTown_MaysHouse_2F_Text_PlayerCallMom, MSGBOX_DEFAULT
+	msgbox LittlerootTown_MaysHouse_2F_Text_MomReply, MSGBOX_DEFAULT
+	setvar VAR_0x8000, ITEM_Z_POWER_RING
+	setvar VAR_0x8001, 1
+	callstd STD_OBTAIN_ITEM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_2F_ZRING_BALL
+	removeobject VAR_LAST_TALKED
+	msgbox LittlerootTown_MaysHouse_2F_Text_DistantVoice, MSGBOX_DEFAULT
+	releaseall
+	end
+
+LittlerootTown_MaysHouse_2F_EventScript_ZRingBall_Empty::
+	msgbox LittlerootTown_MaysHouse_2F_Text_EmptyBall, MSGBOX_SIGN
+	releaseall
+	end
+
+LittlerootTown_MaysHouse_2F_Text_FlickerThought:
+	.string "{COLOR GREEN}(Did the light\n"
+	.string "just flicker?\n"
+	.string "Weird...)\n"
+	.string "{COLOR DARK_GRAY}$"
+
+LittlerootTown_MaysHouse_2F_Text_PlayerBallSpot:
+	.string "{COLOR GREEN}{PLAYER}: Huh?\n"
+	.string "There's a Poke Ball\n"
+	.string "here...\n"
+	.string "{COLOR DARK_GRAY}$"
+
+LittlerootTown_MaysHouse_2F_Text_PlayerCallMom:
+	.string "{COLOR GREEN}{PLAYER}: Mom,\n"
+	.string "did you put a\n"
+	.string "Poke Ball in my\n"
+	.string "room?\n"
+	.string "{COLOR DARK_GRAY}$"
+
+LittlerootTown_MaysHouse_2F_Text_MomReply:
+	.string "MOM: No, dear! Maybe\n"
+	.string "the movers left it?\p"
+	.string "Or maybe it's a\n"
+	.string "welcome gift!$"
+
+LittlerootTown_MaysHouse_2F_Text_DistantVoice:
+	.string "A distant voice: Your destiny awaits...$"
+
+LittlerootTown_MaysHouse_2F_Text_EmptyBall:
+	.string "The Poke Ball is empty.$"
 
 LittlerootTown_MaysHouse_2F_EventScript_CheckShouldUpdateMayPos::
 	goto_if_set FLAG_MET_RIVAL_LILYCOVE, LittlerootTown_MaysHouse_2F_EventScript_TryUpdateMayPos
@@ -38,7 +107,7 @@ LittlerootTown_MaysHouse_2F_EventScript_Ret::
 
 LittlerootTown_MaysHouse_2F_EventScript_CheckSetReadyToMeetMay::
 	checkplayergender
-	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_2F_EventScript_SetReadyToMeetMay
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_MaysHouse_2F_EventScript_SetReadyToMeetMay
 	return
 
 LittlerootTown_MaysHouse_2F_EventScript_SetReadyToMeetMay::
@@ -317,51 +386,30 @@ LittlerootTown_MaysHouse_2F_EventScript_TurnOffPlayerPC::
 	releaseall
 	end
 
-RivalsHouse_2F_Text_MayWhoAreYou::
-.string "MAY: ...!\p"
-.string "{PLAYER}?\p"
-.string "Brendan said you were outside!\p"
-.string "Can't believe you're really back...\p"
-.string "After 11 years.\p"
-.string "{PLAYER}: Yeah... it's weird being back.\p"
-.string "MAY: I get it. So much has changed.\p"
-.string "But Dad's stories made me hope\p"
-.string "you'd return someday.\p"
-.string "{PLAYER}: That rift on the news...\p"
-.string "Something's wrong.\p"
-.string "MAY: Yeah... Battle Frontier rift.\p"
-.string "Scary stuff. Pokémon vanishing?\p"
-.string "Dad's worried sick about it.\p"
-.string "That's why I'm helping him today.\p"
-.string "MAY: Oh! Speaking of-gotta go!\p"
-.string "Wild Pokémon research with Dad.\p"
-.string "{PLAYER}, let's talk more later!\p"
-.string "Glad you're home.\p"
-.string "$"
+RivalsHouse_2F_Text_MayWhoAreYou:
+	.string "{COLOR BLUE}MAY: {PLAYER}…? No way- it’s been forever!\p"
+	.string "{COLOR BLUE}MAY: You didn’t even call ahead before moving in?\n"
+	.string "Typical.\p"
+    .string "{COLOR BLUE}MAY: BRENDAN’s somewhere\n"
+    .string "around outside, but you found\n"
+    .string "me first.\p"
+	.string "{COLOR GREEN}{PLAYER}: …It really has been a long time.\n"
+	.string "(Seeing them again… it feels like the start of\l"
+	.string "something big.){COLOR DARK_GRAY}$"
 
 RivalsHouse_2F_Text_MayGettingReady:
 	.string "POKéMON fully restored!\n"
 	.string "Items ready, and…$"
 
 RivalsHouse_2F_Text_BrendanWhoAreYou:
-.string "BRENDAN: Yo!\p"
-.string "{PLAYER}!\p"
-.string "May said you're back in town!\p"
-.string "11 years-wild, right?\p"
-.string "{PLAYER}: Didn't plan on returning.\p"
-.string "BRENDAN: Plans change. Good thing too.\p"
-.string "Dad hyped you up forever.\p"
-.string "Town needed this energy.\p"
-.string "{PLAYER}: The rift news... Battle Frontier.\p"
-.string "Bad vibes.\p"
-.string "BRENDAN: Totally. Sky ripping open?\p"
-.string "Trainers disappearing in it.\p"
-.string "Dad's freaking-sending me to help.\p"
-.string "BRENDAN: Shoot-time to roll!\p"
-.string "Catching wilds with Dad.\p"
-.string "{PLAYER}, hit me up later!\p"
-.string "We got catching up to do.\p"
-.string "$"
+	.string "{COLOR RED}BRENDAN: {PLAYER}? Hah, I almost didn’t recognize you!\p"
+	.string "{COLOR RED}BRENDAN: Couldn’t even call ahead before moving in?\n"
+	.string "Figures.\p"
+    .string "{COLOR RED}BRENDAN: MAY’s out wandering,\n"
+    .string "but you tracked me down first.\p"
+	.string "{COLOR GREEN}{PLAYER}: …It really has been a long time.\n"
+	.string "(Seeing them again… it feels like the start of\l"
+	.string "something big.){COLOR DARK_GRAY}$"
 
 RivalsHouse_2F_Text_BrendanGettingReady:
 	.string "POKéMON fully restored…\n"

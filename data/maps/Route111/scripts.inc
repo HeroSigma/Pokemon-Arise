@@ -55,11 +55,11 @@ Route111_EventScript_SetFallingPlayerGfx::
 	return
 
 Route111_EventScript_SetFallingPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_BRENDAN
 	return
 
 Route111_EventScript_SetFallingPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_MAY
 	return
 
 Route111_EventScript_CheckSetSandstorm::
@@ -718,4 +718,3 @@ Route111_Text_TrainerHillSign:
 	.string "{RIGHT_ARROW} TRAINER HILL ENTRANCE\p"
 	.string "“Scale the heights, you hot-blooded\n"
 	.string "TRAINERS!”$"
-

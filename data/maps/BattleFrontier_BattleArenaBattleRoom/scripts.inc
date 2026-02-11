@@ -25,11 +25,11 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfx::
 	return
 
 BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_BRENDAN
 	return
 
 BattleFrontier_BattleArenaBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_MAY
 	return
 
 BattleFrontier_BattleArenaBattleRoom_OnFrame:
@@ -364,9 +364,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_DoArenaBattle::
 	setvar VAR_TEMP_2, 0
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, FALSE
 	special HealPlayerParty
-	setvar VAR_0x8004, SPECIAL_BATTLE_ARENA
-	setvar VAR_0x8005, 0
-	special DoSpecialTrainerBattle
+	dofacilitytrainerbattle FACILITY_BATTLE_ARENA
 	waitstate
 	frontier_restorehelditems
 	special HealPlayerParty

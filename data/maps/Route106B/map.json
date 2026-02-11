@@ -1,0 +1,26 @@
+{
+  "id": "MAP_ROUTE106B",
+  "name": "Route106B",
+  "layout": "LAYOUT_ROUTE106B",
+  "music": "MUS_ROUTE101",
+  "region_map_section": "MAPSEC_ROUTE_106",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_NONE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_DEWFORD_TOWN",
+      "offset": 0,
+      "direction": "right"
+    }
+  ],
+  "object_events": [],
+  "warp_events": [],
+  "coord_events": [],
+  "bg_events": []
+}

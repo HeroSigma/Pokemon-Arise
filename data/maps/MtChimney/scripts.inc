@@ -4,12 +4,15 @@ MtChimney_MapScripts::
 	.byte 0
 
 MtChimney_OnTransition:
-	setvar VAR_JAGGED_PASS_ASH_WEATHER, 1
-	end
+        setvar VAR_JAGGED_PASS_ASH_WEATHER, 1
+        call_if_set FLAG_CAUGHT_MOLTRES, MtChimney_HideMoltres
+        call_if_unset FLAG_CAUGHT_MOLTRES, MtChimney_TryShowMoltres
+        end
 
 MtChimney_OnResume:
-	setstepcallback STEP_CB_ASH
-	end
+        setstepcallback STEP_CB_ASH
+        call_if_set FLAG_SYS_CTRL_OBJ_DELETE, MtChimney_TryRemoveMoltres
+        end
 
 MtChimney_EventScript_Archie::
 	lock
@@ -537,9 +540,52 @@ MtChimney_EventScript_SawyerDefeated::
 	end
 
 MtChimney_EventScript_SawyerRematch::
-	trainerbattle_rematch TRAINER_SAWYER_1, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
-	msgbox MtChimney_Text_SawyerPostRematch, MSGBOX_AUTOCLOSE
-	end
+        trainerbattle_rematch TRAINER_SAWYER_1, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
+        msgbox MtChimney_Text_SawyerPostRematch, MSGBOX_AUTOCLOSE
+        end
+
+MtChimney_HideMoltres::
+        setflag FLAG_HIDE_MOLTRES
+        return
+
+MtChimney_TryShowMoltres::
+        clearflag FLAG_HIDE_MOLTRES
+        return
+
+MtChimney_TryRemoveMoltres::
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_ne VAR_RESULT, B_OUTCOME_CAUGHT, Common_EventScript_NopReturn
+        removeobject LOCALID_MT_CHIMNEY_MOLTRES
+        return
+
+MtChimney_Moltres::
+        lock
+        faceplayer
+        waitse
+        playmoncry SPECIES_MOLTRES, CRY_MODE_ENCOUNTER
+        waitmoncry
+        seteventmon SPECIES_MOLTRES, 70
+        setflag FLAG_SYS_CTRL_OBJ_DELETE
+        special BattleSetup_StartLegendaryBattle
+        waitstate
+        clearflag FLAG_SYS_CTRL_OBJ_DELETE
+        specialvar VAR_RESULT, GetBattleOutcome
+        goto_if_eq VAR_RESULT, B_OUTCOME_WON, MtChimney_DefeatedMoltres
+        goto_if_eq VAR_RESULT, B_OUTCOME_RAN, MtChimney_RanFromMoltres
+        goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, MtChimney_RanFromMoltres
+        setflag FLAG_CAUGHT_MOLTRES
+        release
+        end
+
+MtChimney_DefeatedMoltres::
+        setvar VAR_0x8004, SPECIES_MOLTRES
+        goto Common_EventScript_LegendaryFlewAway
+        end
+
+MtChimney_RanFromMoltres::
+        setvar VAR_0x8004, SPECIES_MOLTRES
+        goto Common_EventScript_LegendaryFlewAway
+        end
 
 MtChimney_Text_MeteoriteWillActivateVolcano:
 	.string "The power contained in the METEORITE…\p"

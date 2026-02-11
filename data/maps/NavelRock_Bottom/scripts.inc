@@ -13,7 +13,8 @@ NavelRock_Bottom_EventScript_HideLugia::
 	return
 
 NavelRock_Bottom_EventScript_TryShowLugia::
-	goto_if_set FLAG_DEFEATED_LUGIA, Common_EventScript_NopReturn
+        goto_if_unset FLAG_BADGE06_GET, Common_EventScript_NopReturn
+        goto_if_unset FLAG_CAUGHT_HOOPA, Common_EventScript_NopReturn
 	clearflag FLAG_HIDE_LUGIA
 	return
 
@@ -65,7 +66,6 @@ NavelRock_Bottom_EventScript_Lugia::
 	end
 
 NavelRock_Bottom_EventScript_DefeatedLugia::
-	setflag FLAG_DEFEATED_LUGIA
 	setvar VAR_0x8004, SPECIES_LUGIA
 	goto Common_EventScript_LegendaryFlewAway
 	end

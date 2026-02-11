@@ -22,13 +22,13 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_SetPlayerGfx::
 
 @ The opponent's gfx are set to the players by default
 BattleFrontier_BattlePalaceBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_BRENDAN
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_BRENDAN
 	return
 
 BattleFrontier_BattlePalaceBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
-	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_LINK_RS_MAY
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_LINK_RS_MAY
 	return
 
 BattleFrontier_BattlePalaceBattleRoom_OnFrame:
@@ -274,9 +274,7 @@ BattleFrontier_BattlePalaceBattleRoom_EventScript_DoPalaceBattle::
 	setvar VAR_TEMP_2, 0
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, FALSE
 	special HealPlayerParty
-	setvar VAR_0x8004, SPECIAL_BATTLE_PALACE
-	setvar VAR_0x8005, 0
-	special DoSpecialTrainerBattle
+	dofacilitytrainerbattle FACILITY_BATTLE_PALACE
 	waitstate
 	frontier_restorehelditems
 	special HealPlayerParty
