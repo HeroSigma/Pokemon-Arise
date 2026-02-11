@@ -74,7 +74,7 @@ PetalburgCity_Gym_OnFrame:
 	.2byte 0
 
 PetalburgCity_Gym_EventScript_ReturnFromWallyTutorial::
-	    lockall
+	lockall
 	msgbox PetalburgCity_Gym_Text_DadSoDidItWorkOut, MSGBOX_DEFAULT
 	msgbox PetalburgCity_Gym_Text_WallyThankYouBye, MSGBOX_DEFAULT
 	closemessage
@@ -87,26 +87,7 @@ PetalburgCity_Gym_EventScript_ReturnFromWallyTutorial::
 	delay 30
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	@ Norman turns serious and discusses recent events
-	msgbox PetalburgCity_Gym_Text_NormanHeHasInnocence, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_NormanBirchToldMe, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_PlayerNotReady, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_NormanWasToldToGive, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_PlayerHimWho, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_NormanOnlyThisInstruction, MSGBOX_DEFAULT
-
-	@ Give the Tera Orb if the player does not already have it
-	checkitem ITEM_TERA_ORB
-	goto_if_eq VAR_RESULT, TRUE, PetalburgCity_Gym_EventScript_SkipGiveTeraOrb
-	giveitem ITEM_TERA_ORB, 1
-	playfanfare MUS_OBTAIN_ITEM
-	message PetalburgCity_Gym_Text_ReceivedTeraOrb
-	waitfanfare
-PetalburgCity_Gym_EventScript_SkipGiveTeraOrb:
-	msgbox PetalburgCity_Gym_Text_NormanAboutTheOrb, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_PlayerInnerMonologue, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_PlayerCarryForward, MSGBOX_DEFAULT
-	msgbox PetalburgCity_Gym_Text_NormanCarryWithPurpose, MSGBOX_DEFAULT
+	msgbox PetalburgCity_Gym_Text_DadGoCollectBadges, MSGBOX_DEFAULT
 	setvar VAR_PETALBURG_GYM_STATE, 2
 	releaseall
 	end
@@ -1157,90 +1138,94 @@ PetalburgCity_Gym_EventScript_GymStatue::
 	end
 
 PetalburgCity_Gym_Text_DadYoureHereWithYourPokemon:
-	.string "{COLOR DARK_GRAY}NORMAN: {PLAYER}... you've finally\n"
-	.string "come.\p"
-	.string "Already, I can see--you've grown\n"
-	.string "stronger since we last met.$"
-
+	.string "DAD: Hm?\p"
+	.string "Well, if it isn't {PLAYER}!\n"
+	.string "So you're all finished moving in?\p"
+	.string "I'm surprised that you managed to\n"
+	.string "get here by yourself.\p"
+	.string "Oh, I see.\n"
+	.string "You're with your POKéMON.\p"
+	.string "Hm… Then I guess you're going to\n"
+	.string "become a TRAINER like me, {PLAYER}.\p"
+	.string "That's great news!\n"
+	.string "I'll be looking forward to it!$"
 
 PetalburgCity_Gym_Text_WallyIdLikeAPokemon:
-	.string "{COLOR LIGHT_BLUE}WALLY: E-Excuse me! You're\n"
-	.string "Mr. NORMAN, right?\p"
-	.string "I... I want to try raising a\n"
-	.string "POKEMON of my own. But I don't\n"
-	.string "know how...$"
+	.string "Um… I…\n"
+	.string "I'd like to get a POKéMON, please…$"
 
 PetalburgCity_Gym_Text_DadOhYoureWallyRight:
-	.string "{COLOR DARK_GRAY}NORMAN: Steady yourself,\n"
-	.string "WALLY.\p"
-	.string "You've taken the first step just\n"
-	.string "by coming here.$"
+	.string "DAD: Hm? You're… Uh… Oh, right.\n"
+	.string "You're WALLY, right?$"
 
 PetalburgCity_Gym_Text_WallyIveNeverCaughtAPokemon:
-	.string "{COLOR LIGHT_BLUE}WALLY: I've never done this\n"
-	.string "before. My heart's racing...\p"
-	.string "But if I can do it, maybe I'll\n"
-	.string "finally belong.$"
+	.string "WALLY: I'm going to go stay with my\n"
+	.string "relatives in VERDANTURF TOWN.\p"
+	.string "I thought I would be lonely by myself,\n"
+	.string "so I wanted to take a POKéMON along.\p"
+	.string "But I've never caught a POKéMON before.\n"
+	.string "I don't know how…$"
 
 PetalburgCity_Gym_Text_DadHmISee:
-	.string "{COLOR DARK_GRAY}NORMAN: {COLOR GREEN}{PLAYER},\n"
-	.string "why don't you show him?\p"
-	.string "This will be a good lesson.$"
+	.string "DAD: Hm. I see.$"
+
+PetalburgCity_Gym_Text_DadPlayerGoWithWally:
+	.string "DAD: {PLAYER}, you heard that,\n"
+	.string "right?\p"
+	.string "Go with WALLY and make sure that he\n"
+	.string "safely catches a POKéMON.$"
+
+PetalburgCity_Gym_Text_IllLoanYouMyZigzagoon:
+	.string "WALLY, here, I'll loan you my POKéMON.\p"
+	.string "WALLY received a ZIGZAGOON!$"
+
+PetalburgCity_Gym_Text_WallyThankYouAndDadGivesPokeBall:
+	.string "WALLY: Oh, wow!\n"
+	.string "A POKéMON!\p"
+	.string "DAD: Hm. I'll give you a POKé BALL, too.\n"
+	.string "Go for it!\p"
+	.string "WALLY received a POKé BALL!$"
+
+PetalburgCity_Gym_Text_WallyOhWowThankYou:
+	.string "WALLY: Oh, wow!\n"
+	.string "Thank you!$"
+
+PetalburgCity_Gym_Text_WouldYouReallyComeWithMe:
+	.string "{PLAYER}… Would you really come\n"
+	.string "with me?$"
+
+PetalburgCity_Gym_Text_DadSoDidItWorkOut:
+	.string "DAD: So, did it work out?$"
+
+PetalburgCity_Gym_Text_WallyThankYouBye:
+	.string "WALLY: Thank you, yes, it did.\n"
+	.string "Here's your POKéMON back.\p"
+	.string "{PLAYER}, thank you for coming along\n"
+	.string "with me.\p"
+	.string "You two are why I was able to catch\n"
+	.string "my POKéMON.\p"
+	.string "I promise I'll take really good\n"
+	.string "care of it.\p"
+	.string "Oh! My mom's waiting for me,\n"
+	.string "so I have to go!\p"
+	.string "Bye, {PLAYER}!$"
 
 PetalburgCity_Gym_Text_DadGoCollectBadges:
-    .string ""
-@ New post-tutorial dialogue and item texts
-PetalburgCity_Gym_Text_NormanHeHasInnocence:
-	.string "NORMAN: He has innocence, and a heart\n"
-	.string "that wants to grow.\p"
-	.string "NORMAN: I hope this world won't\n"
-	.string "crush that... like it tries to crush\n"
-	.string "all of us.$"
-PetalburgCity_Gym_Text_NormanBirchToldMe:
-	.string "NORMAN: {PLAYER}, BIRCH told me what\n"
-	.string "happened near LITTLEROOT.\p"
-	.string "NORMAN: The Rift, that strange\n"
-	.string "ZOROARK... no ordinary TRAINER could\n"
-	.string "have faced that and survived.$"
-PetalburgCity_Gym_Text_PlayerNotReady:
-	.string "{PLAYER}: I didn't feel ready.\n"
-	.string "It nearly overwhelmed me.\p"
-	.string "{PLAYER}: (But something...\n"
-	.string "someone... protected me.)$"
-PetalburgCity_Gym_Text_NormanWasToldToGive:
-	.string "NORMAN: There's something I was\n"
-	.string "told to give you.\p"
-	.string "NORMAN: A request left behind...\n"
-	.string "by HIM.$"
-PetalburgCity_Gym_Text_PlayerHimWho:
-	.string "{PLAYER}: HIM? ...Who do you mean?$"
-PetalburgCity_Gym_Text_NormanOnlyThisInstruction:
-	.string "{COLOR DARK_GRAY}NORMAN: He gave no name. Only words.\p"
-	.string "'When my child steps into PETALBURG GYM,\n"
-	.string "give them this.'$"
-PetalburgCity_Gym_Text_ReceivedTeraOrb:
-	.string "> You received the TERA ORB!$"
-PetalburgCity_Gym_Text_NormanAboutTheOrb:
-	.string "{COLOR DARK_GRAY}NORMAN: This is a Tera Orb.\p"
-	.string "It can draw out a POKEMON's hidden\n"
-	.string "essence.\p"
-	.string "But it's unstable, dangerous--never\n"
-	.string "meant for a rookie. And yet...\n"
-	.string "here you stand.$"
-PetalburgCity_Gym_Text_PlayerInnerMonologue:
-	.string "{COLOR GREEN}{PLAYER}: (HIM... could it be...\n"
-	.string "Father? But it's been eight years...\n"
-	.string "How could he know I'd come here, now?)$"
-PetalburgCity_Gym_Text_PlayerCarryForward:
-	.string "{COLOR GREEN}{PLAYER}: If it was meant for me,\n"
-	.string "I'll carry it forward.$"
-PetalburgCity_Gym_Text_NormanCarryWithPurpose:
-	.string "{COLOR DARK_GRAY}NORMAN: Good. Carry it with\n"
-	.string "purpose, {PLAYER}.\p"
-	.string "The path ahead will test you\n"
-	.string "harder than any gym ever could.\n"
-	.string "And one day... you'll understand\n"
-	.string "why HE chose this path for you.$"
+	.string "DAD: Now…\p"
+	.string "{PLAYER}, if you want to become a\n"
+	.string "strong TRAINER, here's my advice.\p"
+	.string "Head for RUSTBORO CITY beyond this\n"
+	.string "town.\p"
+	.string "There, you should challenge\n"
+	.string "the GYM LEADER, ROXANNE.\p"
+	.string "After her, go on to other POKéMON\n"
+	.string "GYMS and defeat their LEADERS.\p"
+	.string "Collect BADGES from them,\n"
+	.string "understood?\p"
+	.string "Of course, I'm a GYM LEADER, too.\n"
+	.string "We'll battle one day, {PLAYER}.\p"
+	.string "But that's only after you become\n"
+	.string "stronger.$"
 
 PetalburgCity_Gym_Text_NormanGoToRustboro:
 	.string "DAD: Hm? Aren't you going to the\n"
@@ -1604,22 +1589,3 @@ PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "Sorry, but you'll have to come back\n"
 	.string "with at least two POKéMON.$"
 
-
-PetalburgCity_Gym_Text_DadSoDidItWorkOut:
-	.string "{COLOR LIGHT_BLUE}WALLY: I-I did it! My very first POKéMON!$"
-PetalburgCity_Gym_Text_WallyThankYouBye:
-	.string "{COLOR LIGHT_BLUE}WALLY: Thank you, Mr. NORMAN--and\n"
-	.string "thank you, {PLAYER}.\p"
-	.string "I'll train hard, and one day...\n"
-	.string "I'll stand tall, just like you both.$"
-PetalburgCity_Gym_Text_DadPlayerGoWithWally:
-	.string "{COLOR DARK_GRAY}NORMAN: {PLAYER}, go with WALLY.\p"
-	.string "This will be a good lesson.$"
-PetalburgCity_Gym_Text_IllLoanYouMyZigzagoon:
-	.string "{COLOR DARK_GRAY}NORMAN: I’ll lend you a ZIGZAGOON.$"
-PetalburgCity_Gym_Text_WallyThankYouAndDadGivesPokeBall:
-	.string "{COLOR LIGHT_BLUE}WALLY: Th-thank you!$"
-PetalburgCity_Gym_Text_WallyOhWowThankYou:
-	.string "{COLOR LIGHT_BLUE}WALLY: Oh, wow! Thank you!$"
-PetalburgCity_Gym_Text_WouldYouReallyComeWithMe:
-	.string "{COLOR LIGHT_BLUE}WALLY: {PLAYER}… would you really come with me?$"

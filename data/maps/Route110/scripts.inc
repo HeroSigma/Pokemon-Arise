@@ -398,13 +398,12 @@ Route110_EventScript_PlayBrendanMusic::
 	return
 
 Route110_EventScript_MayBattle::
-    msgbox Route110_Text_MayLetsBattle, MSGBOX_DEFAULT
-    @ May = NE here; give non‑SE team vs player starter
-    switch VAR_STARTER_MON
-    case 0, Route110_EventScript_MayBattleMudkip     @ Player TREECKO -> NE MUDKIP
-    case 1, Route110_EventScript_MayBattleTreecko    @ Player TORCHIC -> NE TREECKO
-    case 2, Route110_EventScript_MayBattleTorchic    @ Player MUDKIP  -> NE TORCHIC
-    end
+	msgbox Route110_Text_MayLetsBattle, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route110_EventScript_MayBattleTreecko
+	case 1, Route110_EventScript_MayBattleTorchic
+	case 2, Route110_EventScript_MayBattleMudkip
+	end
 
 Route110_EventScript_MayBattleTreecko::
 	trainerbattle_no_intro TRAINER_MAY_ROUTE_110_TREECKO, Route110_Text_MayDefeated
@@ -429,13 +428,12 @@ Route110_EventScript_MayDefeated::
 	end
 
 Route110_EventScript_BrendanBattle::
-    msgbox Route110_Text_BrendanLetsBattle, MSGBOX_DEFAULT
-    @ Brendan = SE here; give super‑effective team vs player starter
-    switch VAR_STARTER_MON
-    case 0, Route110_EventScript_BrendanBattleTorchic  @ Player TREECKO -> SE TORCHIC
-    case 1, Route110_EventScript_BrendanBattleMudkip   @ Player TORCHIC -> SE MUDKIP
-    case 2, Route110_EventScript_BrendanBattleTreecko  @ Player MUDKIP  -> SE TREECKO
-    end
+	msgbox Route110_Text_BrendanLetsBattle, MSGBOX_DEFAULT
+	switch VAR_STARTER_MON
+	case 0, Route110_EventScript_BrendanBattleTreecko
+	case 1, Route110_EventScript_BrendanBattleTorchic
+	case 2, Route110_EventScript_BrendanBattleMudkip
+	end
 
 Route110_EventScript_BrendanBattleTreecko::
 	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_110_TREECKO, Route110_Text_BrendanDefeated
@@ -988,3 +986,4 @@ Route110_Text_KeepAnEyeOutForRival:
 	.string "… … … … … …\p"
 	.string "Well, I had better get going.\n"
 	.string "See you again, {PLAYER}{KUN}!$"
+

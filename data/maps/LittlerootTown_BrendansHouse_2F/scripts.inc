@@ -1,93 +1,24 @@
-
-
 LittlerootTown_BrendansHouse_2F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_BrendansHouse_2F_OnTransition
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_BrendansHouse_2F_OnWarp
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_BrendansHouse_2F_OnFrame
 	.byte 0
 
-LittlerootTown_BrendansHouse_2F_OnFrame:
-	.2byte 0
-
-LittlerootTown_BrendansHouse_2F_EventScript_ShowZRingBall::
-	checkitem ITEM_Z_POWER_RING, 1
-	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_BrendansHouse_2F_EventScript_ShowZRingBallRet
-	goto_if_set FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_ZRING_BALL, LittlerootTown_BrendansHouse_2F_EventScript_SpawnZRingBall
-LittlerootTown_BrendansHouse_2F_EventScript_ShowZRingBallRet:
-	return
-
-LittlerootTown_BrendansHouse_2F_EventScript_SpawnZRingBall::
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_ZRING_BALL
-	addobject LOCALID_BRENDANS_HOUSE_2F_ZRING_BALL
-	return
-
 LittlerootTown_BrendansHouse_2F_OnTransition:
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_2F_EventScript_CheckIntroStateForBrendan
+	goto LittlerootTown_BrendansHouse_2F_EventScript_SkipIntroCheck
+
+LittlerootTown_BrendansHouse_2F_EventScript_CheckIntroStateForBrendan::
+	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 7, LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan
+	return
+
+LittlerootTown_BrendansHouse_2F_EventScript_SkipIntroCheck::
 	call_if_lt VAR_LITTLEROOT_RIVAL_STATE, 2, LittlerootTown_BrendansHouse_2F_EventScript_CheckSetReadyToMeetBrendan
 	call_if_ge VAR_LITTLEROOT_RIVAL_STATE, 3, LittlerootTown_BrendansHouse_2F_EventScript_CheckShouldUpdateBrendanPos
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
 	end
-
-// Brief flicker when arriving upstairs to hint at the Poke Ball
-LittlerootTown_BrendansHouse_2F_EventScript_IntroFlicker::
-	lockall
-	msgbox LittlerootTown_BrendansHouse_2F_Text_FlickerThought, MSGBOX_DEFAULT
-	releaseall
-	return
-
-// Extra Poke Ball: grant Z-Power Ring with flavor dialogue
-LittlerootTown_BrendansHouse_2F_EventScript_ZRingBall::
-	lockall
-	checkitem ITEM_Z_POWER_RING, 1
-	goto_if_eq VAR_RESULT, TRUE, LittlerootTown_BrendansHouse_2F_EventScript_ZRingBall_Empty
-	msgbox LittlerootTown_BrendansHouse_2F_Text_PlayerBallSpot, MSGBOX_DEFAULT
-	msgbox LittlerootTown_BrendansHouse_2F_Text_PlayerCallMom, MSGBOX_DEFAULT
-	msgbox LittlerootTown_BrendansHouse_2F_Text_MomReply, MSGBOX_DEFAULT
-	setvar VAR_0x8000, ITEM_Z_POWER_RING
-	setvar VAR_0x8001, 1
-	callstd STD_OBTAIN_ITEM
-	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_ZRING_BALL
-	removeobject VAR_LAST_TALKED
-	msgbox LittlerootTown_BrendansHouse_2F_Text_DistantVoice, MSGBOX_DEFAULT
-	releaseall
-	end
-
-LittlerootTown_BrendansHouse_2F_EventScript_ZRingBall_Empty::
-	msgbox LittlerootTown_BrendansHouse_2F_Text_EmptyBall, MSGBOX_SIGN
-	releaseall
-	end
-
-LittlerootTown_BrendansHouse_2F_Text_FlickerThought:
-	.string "{COLOR GREEN}(Did the light\n"
-	.string "just flicker?\n"
-	.string "Weird...)\n"
-	.string "{COLOR DARK_GRAY}$"
-
-LittlerootTown_BrendansHouse_2F_Text_PlayerBallSpot:
-	.string "{COLOR GREEN}{PLAYER}: Huh?\n"
-	.string "There's a Poke Ball\n"
-	.string "here...\n"
-	.string "{COLOR DARK_GRAY}$"
-
-LittlerootTown_BrendansHouse_2F_Text_PlayerCallMom:
-	.string "{COLOR GREEN}{PLAYER}: Mom,\n"
-	.string "did you put a\n"
-	.string "Poke Ball in my\n"
-	.string "room?\n"
-	.string "{COLOR DARK_GRAY}$"
-
-LittlerootTown_BrendansHouse_2F_Text_MomReply:
-	.string "MOM: No, dear! Maybe\n"
-	.string "the movers left it?\p"
-	.string "Or maybe it's a\n"
-	.string "welcome gift!$"
-
-LittlerootTown_BrendansHouse_2F_Text_DistantVoice:
-	.string "A distant voice: Your destiny awaits...$"
-
-LittlerootTown_BrendansHouse_2F_Text_EmptyBall:
-	.string "The Poke Ball is empty.$"
 
 LittlerootTown_BrendansHouse_2F_EventScript_CheckShouldUpdateBrendanPos::
 	goto_if_set FLAG_MET_RIVAL_LILYCOVE, LittlerootTown_BrendansHouse_2F_EventScript_TryUpdateBrendanPos
@@ -108,7 +39,7 @@ LittlerootTown_BrendansHouse_2F_EventScript_Ret::
 
 LittlerootTown_BrendansHouse_2F_EventScript_CheckSetReadyToMeetBrendan::
 	checkplayergender
-	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan
+	goto_if_eq VAR_RESULT, MALE, LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan
 	return
 
 LittlerootTown_BrendansHouse_2F_EventScript_SetReadyToMeetBrendan::
@@ -336,6 +267,65 @@ LittlerootTown_BrendansHouse_2F_EventScript_TurnOffPlayerPC::
 	end
 
 LittlerootTown_BrendansHouse_2F_EventScript_CheckRivalsPC::
-        msgbox gText_PokemonTrainerSchoolEmail, MSGBOX_DEFAULT
-        releaseall
-        end
+	msgbox gText_PokemonTrainerSchoolEmail, MSGBOX_DEFAULT
+	releaseall
+	end
+
+PlayersHouse_2F_EventScript_Notebook::
+	msgbox PlayersHouse_2F_Text_Notebook, MSGBOX_SIGN
+	end
+
+PlayersHouse_2F_EventScript_GameCube::
+	msgbox PlayersHouse_2F_Text_ItsAGameCube, MSGBOX_SIGN
+	end
+
+PlayersHouse_2F_Text_ThisIsYourRoom::
+	.string "This is your room...\p"
+	.string "Just like you left it.\p"
+	.string "A little dustier now.$"
+
+PlayersHouse_2F_Text_OldPhoto::
+	.string "An old photo on the shelf...\p"
+	.string "You as a kid, Mom, Dad...\p"
+	.string "Smiling outside the old lab.$"
+
+PlayersHouse_2F_Text_ClockIsStopped::
+	.string "The clock is stopped...\p"
+	.string "Better set it and start it!$"
+
+PlayersHouse_2F_Text_SetClock::
+	.string "{PLAYER} set the clock.\p"
+	.string "The seconds start ticking...\p"
+	.string "Time feels heavier now.$"
+
+PlayersHouse_2F_Text_HowDoYouLikeYourRoom::
+	.string "SELENE: {PLAYER}, how do you like\p"
+	.string "your room?\p"
+	.string "Everything's put away neatly!\p"
+	.string "The movers finished downstairs.\p"
+	.string "Pokémon movers are so convenient!\p"
+	.string "Oh, check your desk too,\p"
+	.string "make sure nothing's missing.$"
+
+PlayersHouse_2F_Text_Notebook:
+	.string "{PLAYER} flipped open the notebook.\p"
+	.string "ADVENTURE RULE NO. 1\n"
+	.string "Open the MENU with START.\p"
+	.string "ADVENTURE RULE NO. 2\n"
+	.string "Record your progress with SAVE.\p"
+	.string "The remaining pages are blank…$"
+
+PlayersHouse_2F_Text_DeskItems:
+	.string "On the desk: your old toy truck,\n"
+	.string "a dusty Poké Ball sticker,\l"
+	.string "and a blank notebook...\n"
+	.string "from before you left.$"
+
+Common_Text_LookCloserAtMap:
+	.string "{PLAYER} took a closer look at the\n"
+	.string "HOENN region map.$"
+
+PlayersHouse_2F_Text_ItsAGameCube:
+	.string "It's a Nintendo GameCube.\p"
+	.string "A Game Boy Advance is connected to\n"
+	.string "serve as the Controller.$"

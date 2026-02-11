@@ -93,33 +93,12 @@ LittlerootTown_MaysHouse_1F_EventScript_YoureNewNeighbor::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	applymovement LOCALID_RIVALS_HOUSE_1F_MOM, LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach
 	waitmovement 0
-	checkplayergender
-	call_if_eq VAR_RESULT, MALE, LittlerootTown_MaysHouse_1F_EventScript_MrsBirchGreeting_ToMeetMay
-	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_MaysHouse_1F_EventScript_MrsBirchGreeting_ToMeetBrendan
+	special GetRivalSonDaughterString
+	msgbox RivalsHouse_1F_Text_OhYoureTheNewNeighbor, MSGBOX_DEFAULT
 	setflag FLAG_MET_RIVAL_MOM
 	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2
 	releaseall
 	end
-
-LittlerootTown_MaysHouse_1F_EventScript_MrsBirchGreeting_ToMeetMay::
-	msgbox RivalsHouse_1F_Text_MrsBirchEightYears, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchHowHaveYouBeen, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_PlayerArchipelagoIncident, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchAskSelene, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_PlayerSeleneDoingHerBest, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchYouveGrown, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchMayUpstairs, MSGBOX_DEFAULT
-	return
-
-LittlerootTown_MaysHouse_1F_EventScript_MrsBirchGreeting_ToMeetBrendan::
-	msgbox RivalsHouse_1F_Text_MrsBirchEightYears, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchHowHaveYouBeen, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_PlayerArchipelagoIncident, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchAskSelene, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_PlayerSeleneDoingHerBest, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchYouveGrown, MSGBOX_DEFAULT
-	msgbox RivalsHouse_1F_Text_MrsBirchBrendanUpstairs, MSGBOX_DEFAULT
-	return
 
 LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach:
 	walk_down
@@ -206,6 +185,12 @@ LittlerootTown_MaysHouse_1F_EventScript_MeetRival::
 	call_if_eq VAR_0x8008, 0, LittlerootTown_MaysHouse_1F_EventScript_MayApproachPlayer0
 	call_if_eq VAR_0x8008, 1, LittlerootTown_MaysHouse_1F_EventScript_MayApproachPlayer1
 	call_if_eq VAR_0x8008, 2, LittlerootTown_MaysHouse_1F_EventScript_MayApproachPlayer2
+	waitmovement 0
+	
+	@ Make player face down before dialogue
+	applymovement LOCALID_PLAYER, Common_Movement_FaceDown
+	waitmovement 0
+	
 	msgbox RivalsHouse_1F_Text_MayWhoAreYou, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_0x8008, 0, LittlerootTown_MaysHouse_1F_EventScript_MayGoUpstairs0
@@ -225,7 +210,7 @@ LittlerootTown_MaysHouse_1F_EventScript_MeetRival::
 	end
 
 LittlerootTown_MaysHouse_1F_EventScript_PlayerFaceMay::
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_PLAYER, Common_Movement_FaceDown
 	waitmovement 0
 	return
 
@@ -338,34 +323,38 @@ LittlerootTown_MaysHouse_1F_Movement_MayGoUpstairs2:
 	step_end
 
 RivalsHouse_1F_Text_OhYoureTheNewNeighbor:
-	.string "Oh, hello. And you are?\p"
-	.string "... ... ... ... ... ... ... ... ...\n"
-	.string "... ... ... ... ... ... ... ... ...\p"
-	.string "Oh, you're {PLAYER}{KUN}, our new\n"
-	.string "next-door neighbor! Hi!\pWe have a\n"
-	.string "{STR_VAR_1} about the same age as\n"
-	.string "you.\pOur {STR_VAR_1} was excited\n"
-	.string "about making a new friend.\pOur\n"
-	.string "{STR_VAR_1} is upstairs, I think.$"
+.string "Mrs. Birch: Oh! Is that {PLAYER}?\p"
+.string "My goodness, look at you!\p"
+.string "It's been so long...\p"
+.string "Eleven years, right?\p"
+.string "You've grown so much!\p"
+.string "It's really great to see you again.\p"
+.string "Welcome back to Littleroot!\p"
+.string "{RIVAL} just ran out,\p"
+.string "didn't they?\p"
+.string "Always in a hurry...\p"
+.string "The other one is coming.\p"
+.string "Head upstairs and wait!\p"
+.string "$"
 
 RivalsHouse_1F_Text_LikeChildLikeFather:
-	.string "Like child, like father.\pMy husband\n"
-	.string "is as wild about POKéMON as our\n"
-	.string "child.\pIf he's not at his LAB,\n"
-	.string "he's likely scrabbling about in\n"
-	.string "grassy places.$"
+	.string "Like child, like father.\p"
+	.string "My husband is as wild about POKéMON\n"
+	.string "as our child.\p"
+	.string "If he's not at his LAB, he's likely\n"
+	.string "scrabbling about in grassy places.$"
 
 RivalsHouse_1F_Text_TooBusyToNoticeVisit:
-	.string "That {RIVAL}!\pI guess our child is\n"
-	.string "too busy with POKéMON to notice\n"
-	.string "that you came to visit,\n"
-	.string "{PLAYER}{KUN}.$"
+	.string "That {RIVAL}!\p"
+	.string "I guess our child is too busy with\n"
+	.string "POKéMON to notice that you came\l"
+	.string "to visit, {PLAYER}{KUN}.$"
 
 RivalsHouse_1F_Text_WentOutToRoute103:
 	.string "Oh, {RIVAL} went out to ROUTE 103\n"
-	.string "just a little while ago.\pLike\n"
-	.string "father, like child. {RIVAL} can't\n"
-	.string "stay quietly at home.$"
+	.string "just a little while ago.\p"
+	.string "Like father, like child.\n"
+	.string "{RIVAL} can't stay quietly at home.$"
 
 RivalsHouse_1F_Text_ShouldGoHomeEverySoOften:
 	.string "I think it's wonderful for people to\n"
@@ -376,64 +365,48 @@ RivalsHouse_1F_Text_ShouldGoHomeEverySoOften:
 	.string "worries about you, {PLAYER}{KUN}.$"
 
 RivalsHouse_1F_Text_MayWhoAreYou:
-	.string "MAY: {PLAYER}! There you are.\p"
-	.string "PLAYER: Hey. Long time.\p"
-	.string "MAY: Eight years since LITTLEROOT.\p"
-	.string "PLAYER: Feels like yesterday.\p"
-	.string "MAY: BRENDAN headed out already.\p"
-	.string "PLAYER: We'll meet them soon.\p"
-	.string "MAY: They'll flip when they see you.\p"
-	.string "PLAYER: Can't wait.\p"
-	.string "MAY: Let's catch up outside later.\p"
-	.string "PLAYER: See you outside.$"
+.string "MAY: ...!\p"
+.string "{PLAYER}?\p"
+.string "Brendan said you were outside!\p"
+.string "Can't believe you're really back...\p"
+.string "After 11 years.\p"
+.string "{PLAYER}: Yeah... it's weird being back.\p"
+.string "MAY: I get it. So much has changed.\p"
+.string "But Dad's stories made me hope\p"
+.string "you'd return someday.\p"
+.string "{PLAYER}: That rift on the news...\p"
+.string "Something's wrong.\p"
+.string "MAY: Yeah... Battle Frontier rift.\p"
+.string "Scary stuff. Pokémon vanishing?\p"
+.string "Dad's worried sick about it.\p"
+.string "That's why I'm helping him today.\p"
+.string "MAY: Oh! Speaking of-gotta go!\p"
+.string "Wild Pokémon research with Dad.\p"
+.string "{PLAYER}, let's talk more later!\p"
+.string "Glad you're home.\p"
+.string "$"
 
 RivalsHouse_1F_Text_BrendanWhoAreYou:
-	.string "BRENDAN: {PLAYER}! There you are.\p"
-	.string "PLAYER: Hey. Long time.\p"
-	.string "BRENDAN: Eight years since LITTLEROOT.\p"
-	.string "PLAYER: Feels like yesterday.\p"
-	.string "BRENDAN: MAY headed out already.\p"
-	.string "PLAYER: We'll meet them soon.\p"
-	.string "BRENDAN: They'll flip when they see you.\p"
-	.string "PLAYER: Can't wait.\p"
-	.string "BRENDAN: Let's catch up outside later.\p"
-	.string "PLAYER: See you outside.$"
+.string "BRENDAN: Yo!\p"
+.string "{PLAYER}!\p"
+.string "May said you're back in town!\p"
+.string "11 years-wild, right?\p"
+.string "{PLAYER}: Didn't plan on returning.\p"
+.string "BRENDAN: Plans change. Good thing too.\p"
+.string "Dad hyped you up forever.\p"
+.string "Town needed this energy.\p"
+.string "{PLAYER}: The rift news... Battle Frontier.\p"
+.string "Bad vibes.\p"
+.string "BRENDAN: Totally. Sky ripping open?\p"
+.string "Trainers disappearing in it.\p"
+.string "Dad's freaking-sending me to help.\p"
+.string "BRENDAN: Shoot-time to roll!\p"
+.string "Catching wilds with Dad.\p"
+.string "{PLAYER}, hit me up later!\p"
+.string "We got catching up to do.\p"
+.string "$"
 
 RivalsHouse_1F_Text_DoYouHavePokemon:
 	.string "Hi, neighbor!\p"
 	.string "Do you already have your\n"
 	.string "own POKéMON?$"
-
-RivalsHouse_1F_Text_MrsBirchEightYears:
-	.string "MRS. BIRCH: {PLAYER}! Goodness, it’s been eight years\n"
-	.string "since I last saw you.$"
-
-RivalsHouse_1F_Text_MrsBirchHowHaveYouBeen:
-	.string "MRS. BIRCH: How have you been? And how is your\n"
-	.string "father?$"
-
-RivalsHouse_1F_Text_PlayerArchipelagoIncident:
-	.string "{COLOR GREEN}{PLAYER}: …Father’s research kept us away on the\n"
-	.string "Archipelago.\p"
-	.string "Things… changed after the incident, but we\n"
-	.string "managed.{COLOR DARK_GRAY}$"
-
-RivalsHouse_1F_Text_MrsBirchAskSelene:
-	.string "MRS. BIRCH: I see… and what about SELENE?\n"
-	.string "Is your mother well?$"
-
-RivalsHouse_1F_Text_PlayerSeleneDoingHerBest:
-	.string "{COLOR GREEN}{PLAYER}: She’s doing her best. Always looking out\n"
-	.string "for me, no matter what.{COLOR DARK_GRAY}$"
-
-RivalsHouse_1F_Text_MrsBirchYouveGrown:
-	.string "MRS. BIRCH: That sounds like her. You’ve grown\n"
-	.string "so much.$"
-
-RivalsHouse_1F_Text_MrsBirchMayUpstairs:
-	.string "MRS. BIRCH: MAY should be upstairs. Go on and\n"
-	.string "say hello.$"
-
-RivalsHouse_1F_Text_MrsBirchBrendanUpstairs:
-	.string "MRS. BIRCH: BRENDAN should be upstairs. Go on and\n"
-	.string "say hello.$"

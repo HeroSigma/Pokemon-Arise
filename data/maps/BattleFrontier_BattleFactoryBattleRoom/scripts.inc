@@ -37,11 +37,11 @@ BattleFrontier_BattleFactoryBattleRoom_EventScript_EndHideObjects::
 	end
 
 BattleFrontier_BattleFactoryBattleRoom_EventScript_SetPlayerGfxMale::
-	setvar VAR_OBJ_GFX_ID_F, OBJ_EVENT_GFX_LINK_RS_BRENDAN
+	setvar VAR_OBJ_GFX_ID_F, OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL
 	return
 
 BattleFrontier_BattleFactoryBattleRoom_EventScript_SetPlayerGfxFemale::
-	setvar VAR_OBJ_GFX_ID_F, OBJ_EVENT_GFX_LINK_RS_MAY
+	setvar VAR_OBJ_GFX_ID_F, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
 	return
 
 BattleFrontier_BattleFactoryBattleRoom_OnFrame:
@@ -80,7 +80,9 @@ BattleFrontier_BattleFactoryBattleRoom_EventScript_BattleOpponent::
 	closemessage
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, FALSE
 	special HealPlayerParty
-	dofacilitytrainerbattle FRONTIER_FACILITY_FACTORY
+	setvar VAR_0x8004, SPECIAL_BATTLE_FACTORY
+	setvar VAR_0x8005, 0
+	special DoSpecialTrainerBattle
 	waitstate
 	switch VAR_RESULT
 	case 1, BattleFrontier_BattleFactoryBattleRoom_EventScript_DefeatedOpponent
@@ -169,7 +171,9 @@ BattleFrontier_BattleFactoryBattleRoom_EventScript_DoNolandBattle::
 	closemessage
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, FALSE
 	special HealPlayerParty
-	dofacilitytrainerbattle FACILITY_BATTLE_FACTORY
+	setvar VAR_0x8004, SPECIAL_BATTLE_FACTORY
+	setvar VAR_0x8005, 0
+	special DoSpecialTrainerBattle
 	waitstate
 	return
 
@@ -307,3 +311,4 @@ BattleFrontier_BattleFactoryBattleRoom_Text_LastTimeILoseToYou:
 	.string "That's absolutely the last time\n"
 	.string "I lose to you!\p"
 	.string "We have to do this again, hey?$"
+
