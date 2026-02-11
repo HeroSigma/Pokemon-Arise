@@ -23,8 +23,12 @@
 #include "window.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
+#include "string_util.h"
 
-#define STARTER_MON_COUNT   3
+#define STARTER_MON_COUNT   18  // 2 rows of 9 starters
+#define STARTER_GROUP_COUNT 3
+#define STARTERS_PER_GROUP  3
+#define TOTAL_STARTERS      18
 
 // Position of the sprite of the selected starter Pokémon
 #define STARTER_PKMN_POS_X (DISPLAY_WIDTH / 2)
@@ -37,10 +41,11 @@ static void CB2_StarterChoose(void);
 static void ClearStarterLabel(void);
 static void Task_StarterChoose(u8 taskId);
 static void Task_HandleStarterChooseInput(u8 taskId);
+static void Task_HandleStarterSelectionInput(u8 taskId);
+static void Task_TransitionToGroupSelection(u8 taskId);
 static void Task_WaitForStarterSprite(u8 taskId);
 static void Task_AskConfirmStarter(u8 taskId);
 static void Task_HandleConfirmStarterInput(u8 taskId);
-static void Task_DeclineStarter(u8 taskId);
 static void Task_MoveStarterChooseCursor(u8 taskId);
 static void Task_CreateStarterLabel(u8 taskId);
 static void CreateStarterPokemonLabel(u8 selection);
@@ -48,8 +53,15 @@ static u8 CreatePokemonFrontSprite(u16 species, u8 x, u8 y);
 static void SpriteCB_SelectionHand(struct Sprite *sprite);
 static void SpriteCB_Pokeball(struct Sprite *sprite);
 static void SpriteCB_StarterPokemon(struct Sprite *sprite);
+static u16 GetStarterFromGroup(u8 group, u8 selection);
 
 static u16 sStarterLabelWindowId;
+
+// Text constants for group names
+static const u8 gText_StarterGroup[] = _("STARTER GROUP");
+static const u8 gText_Gen1To3[] = _("GEN 1-3");
+static const u8 gText_Gen4To6[] = _("GEN 4-6");
+static const u8 gText_Gen7To9[] = _("GEN 7-9");
 
 const u16 gBirchBagGrass_Pal[] = INCBIN_U16("graphics/starter_choose/tiles.gbapal");
 static const u16 sPokeballSelection_Pal[] = INCBIN_U16("graphics/starter_choose/pokeball_selection.gbapal");
@@ -98,16 +110,22 @@ static const struct WindowTemplate sWindowTemplate_StarterLabel =
 
 static const u8 sPokeballCoords[STARTER_MON_COUNT][2] =
 {
-    {60, 64},
-    {120, 88},
-    {180, 64},
+    // First row (6 starters)
+    {32, 24}, {64, 24}, {96, 24}, {128, 24}, {160, 24}, {192, 24},
+    // Second row (6 starters)
+    {32, 48}, {64, 48}, {96, 48}, {128, 48}, {160, 48}, {192, 48},
+    // Third row (6 starters)
+    {32, 72}, {64, 72}, {96, 72}, {128, 72}, {160, 72}, {192, 72},
 };
 
 static const u8 sStarterLabelCoords[STARTER_MON_COUNT][2] =
 {
-    {0, 9},
-    {16, 10},
-    {8, 4},
+    // First row labels
+    {2, 2}, {10, 2}, {18, 2}, {26, 2}, {34, 2}, {42, 2},
+    // Second row labels
+    {2, 7}, {10, 7}, {18, 7}, {26, 7}, {34, 7}, {42, 7},
+    // Third row labels
+    {2, 12}, {10, 12}, {18, 12}, {26, 12}, {34, 12}, {42, 12},
 };
 
 static const u16 sStarterMon[STARTER_MON_COUNT] =
@@ -115,6 +133,18 @@ static const u16 sStarterMon[STARTER_MON_COUNT] =
     SPECIES_TREECKO,
     SPECIES_TORCHIC,
     SPECIES_MUDKIP,
+};
+
+static const u16 sAllStarters[TOTAL_STARTERS] =
+{
+    // First row (6 starters)
+    SPECIES_EEVEE, SPECIES_CHARMANDER, SPECIES_FROAKIE, SPECIES_SPRIGATITO, SPECIES_PAWMI, SPECIES_VULPIX_ALOLA,
+    
+    // Second row (6 starters)
+    SPECIES_TIMBURR, SPECIES_GRIMER_ALOLA, SPECIES_SANDILE, SPECIES_ROOKIDEE, SPECIES_RALTS, SPECIES_NYMBLE,
+    
+    // Third row (6 starters)
+    SPECIES_NACLI, SPECIES_GREAVARD, SPECIES_DRATINI, SPECIES_POOCHYENA, SPECIES_ARON, SPECIES_TINKATINK,
 };
 
 static const struct BgTemplate sBgTemplates[3] =
@@ -203,9 +233,12 @@ static const struct OamData sOam_StarterCircle =
 
 static const u8 sCursorCoords[][2] =
 {
-    {60, 32},
-    {120, 56},
-    {180, 32},
+    // First row cursors (6 positions)
+    {32, 8}, {64, 8}, {96, 8}, {128, 8}, {160, 8}, {192, 8},
+    // Second row cursors (6 positions)
+    {32, 32}, {64, 32}, {96, 32}, {128, 32}, {160, 32}, {192, 32},
+    // Third row cursors (6 positions)
+    {32, 56}, {64, 56}, {96, 56}, {128, 56}, {160, 56}, {192, 56},
 };
 
 static const union AnimCmd sAnim_Hand[] =
@@ -350,9 +383,18 @@ static const struct SpriteTemplate sSpriteTemplate_StarterCircle =
 // .text
 u16 GetStarterPokemon(u16 chosenStarterId)
 {
-    if (chosenStarterId > STARTER_MON_COUNT)
+    if (chosenStarterId >= TOTAL_STARTERS)
         chosenStarterId = 0;
-    return sStarterMon[chosenStarterId];
+    return sAllStarters[chosenStarterId];
+}
+
+static u16 GetStarterFromGroup(u8 group, u8 selection)
+{
+    if (group >= STARTER_GROUP_COUNT)
+        group = 0;
+    if (selection >= STARTERS_PER_GROUP)
+        selection = 0;
+    return sAllStarters[group * STARTERS_PER_GROUP * 3 + selection];
 }
 
 static void VblankCB_StarterChoose(void)
@@ -366,6 +408,8 @@ static void VblankCB_StarterChoose(void)
 #define tStarterSelection   data[0]
 #define tPkmnSpriteId       data[1]
 #define tCircleSpriteId     data[2]
+#define tPhase              data[3]  // 0 = group selection, 1 = starter selection
+#define tGroupSelection     data[4]  // 0-2 for group selection
 
 // Data for sSpriteTemplate_Pokeball
 #define sTaskId data[0]
@@ -375,6 +419,7 @@ void CB2_ChooseStarter(void)
 {
     u8 taskId;
     u8 spriteId;
+    u8 i;
 
     SetVBlankCallback(NULL);
 
@@ -440,24 +485,21 @@ void CB2_ChooseStarter(void)
     ShowBg(3);
 
     taskId = CreateTask(Task_StarterChoose, 0);
-    gTasks[taskId].tStarterSelection = 1;
+    gTasks[taskId].tStarterSelection = 9;  // Start in middle of second row (index 9)
+    gTasks[taskId].tPhase = 0;  // Simplified - just direct selection
+    gTasks[taskId].tGroupSelection = 0;  // Not used anymore
 
     // Create hand sprite
     spriteId = CreateSprite(&sSpriteTemplate_Hand, 120, 56, 2);
     gSprites[spriteId].data[0] = taskId;
 
-    // Create three Poké Ball sprites
-    spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[0][0], sPokeballCoords[0][1], 2);
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sBallId = 0;
-
-    spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[1][0], sPokeballCoords[1][1], 2);
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sBallId = 1;
-
-    spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[2][0], sPokeballCoords[2][1], 2);
-    gSprites[spriteId].sTaskId = taskId;
-    gSprites[spriteId].sBallId = 2;
+    // Create nine Poké Ball sprites
+    for (i = 0; i < STARTER_MON_COUNT; i++)
+    {
+        spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[i][0], sPokeballCoords[i][1], 2);
+        gSprites[spriteId].sTaskId = taskId;
+        gSprites[spriteId].sBallId = i;
+    }
 
     sStarterLabelWindowId = WINDOW_NONE;
 }
@@ -484,11 +526,14 @@ static void Task_StarterChoose(u8 taskId)
 static void Task_HandleStarterChooseInput(u8 taskId)
 {
     u8 selection = gTasks[taskId].tStarterSelection;
+    u8 spriteId;
 
     if (JOY_NEW(A_BUTTON))
     {
-        u8 spriteId;
-
+        // Debug: A button pressed
+        PlaySE(SE_SELECT);
+        
+        // Direct starter selection - no phases needed
         ClearStarterLabel();
 
         // Create white circle background
@@ -496,7 +541,8 @@ static void Task_HandleStarterChooseInput(u8 taskId)
         gTasks[taskId].tCircleSpriteId = spriteId;
 
         // Create Pokémon sprite
-        spriteId = CreatePokemonFrontSprite(GetStarterPokemon(gTasks[taskId].tStarterSelection), sPokeballCoords[selection][0], sPokeballCoords[selection][1]);
+        u16 starterSpecies = GetStarterPokemon(selection);
+        spriteId = CreatePokemonFrontSprite(starterSpecies, sPokeballCoords[selection][0], sPokeballCoords[selection][1]);
         gSprites[spriteId].affineAnims = &sAffineAnims_StarterPokemon;
         gSprites[spriteId].callback = SpriteCB_StarterPokemon;
 
@@ -513,6 +559,21 @@ static void Task_HandleStarterChooseInput(u8 taskId)
         gTasks[taskId].tStarterSelection++;
         gTasks[taskId].func = Task_MoveStarterChooseCursor;
     }
+    else if (JOY_NEW(DPAD_UP) && selection >= 6)
+    {
+        gTasks[taskId].tStarterSelection -= 6;
+        gTasks[taskId].func = Task_MoveStarterChooseCursor;
+    }
+    else if (JOY_NEW(DPAD_DOWN) && selection < STARTER_MON_COUNT - 6)
+    {
+        gTasks[taskId].tStarterSelection += 6;
+        gTasks[taskId].func = Task_MoveStarterChooseCursor;
+    }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        // Debug: B button pressed
+        PlaySE(SE_SELECT);
+    }
 }
 
 static void Task_WaitForStarterSprite(u8 taskId)
@@ -525,9 +586,88 @@ static void Task_WaitForStarterSprite(u8 taskId)
     }
 }
 
+
+static void Task_TransitionToGroupSelection(u8 taskId)
+{
+    u8 i;
+    u8 spriteId;
+    
+    // Destroy existing Poké Ball sprites
+    for (i = 0; i < STARTER_MON_COUNT; i++)
+    {
+        for (spriteId = 0; spriteId < MAX_SPRITES; spriteId++)
+        {
+            if (gSprites[spriteId].inUse && 
+                gSprites[spriteId].template == &sSpriteTemplate_Pokeball &&
+                gSprites[spriteId].sBallId == i)
+            {
+                DestroySprite(&gSprites[spriteId]);
+                break;
+            }
+        }
+    }
+    
+    // Create new Poké Ball sprites for group selection
+    for (i = 0; i < STARTER_MON_COUNT; i++)
+    {
+        spriteId = CreateSprite(&sSpriteTemplate_Pokeball, sPokeballCoords[i][0], sPokeballCoords[i][1], 2);
+        gSprites[spriteId].sTaskId = taskId;
+        gSprites[spriteId].sBallId = i;
+    }
+    
+    // Switch back to phase 1 and restore group selection
+    gTasks[taskId].tStarterSelection = gTasks[taskId].tGroupSelection;
+    gTasks[taskId].tPhase = 0;
+    gTasks[taskId].func = Task_HandleStarterChooseInput;
+    
+    // Create initial label for phase 1
+    CreateStarterPokemonLabel(gTasks[taskId].tStarterSelection);
+}
+
+static void Task_HandleStarterSelectionInput(u8 taskId)
+{
+    u8 selection = gTasks[taskId].tStarterSelection;
+    u8 spriteId;
+
+    if (JOY_NEW(A_BUTTON))
+    {
+        ClearStarterLabel();
+
+        // Create white circle background
+        spriteId = CreateSprite(&sSpriteTemplate_StarterCircle, sPokeballCoords[selection][0], sPokeballCoords[selection][1], 1);
+        gTasks[taskId].tCircleSpriteId = spriteId;
+
+        // Create Pokémon sprite
+        u16 starterSpecies = GetStarterFromGroup(gTasks[taskId].tGroupSelection, selection);
+        spriteId = CreatePokemonFrontSprite(starterSpecies, sPokeballCoords[selection][0], sPokeballCoords[selection][1]);
+        gSprites[spriteId].affineAnims = &sAffineAnims_StarterPokemon;
+        gSprites[spriteId].callback = SpriteCB_StarterPokemon;
+
+        gTasks[taskId].tPkmnSpriteId = spriteId;
+        gTasks[taskId].func = Task_WaitForStarterSprite;
+    }
+    else if (JOY_NEW(DPAD_LEFT) && selection > 0)
+    {
+        gTasks[taskId].tStarterSelection--;
+        gTasks[taskId].func = Task_MoveStarterChooseCursor;
+    }
+    else if (JOY_NEW(DPAD_RIGHT) && selection < STARTER_MON_COUNT - 1)
+    {
+        gTasks[taskId].tStarterSelection++;
+        gTasks[taskId].func = Task_MoveStarterChooseCursor;
+    }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        // Return to group selection
+        PlaySE(SE_SELECT);
+        gTasks[taskId].func = Task_TransitionToGroupSelection;
+    }
+}
+
 static void Task_AskConfirmStarter(u8 taskId)
 {
-    PlayCry_Normal(GetStarterPokemon(gTasks[taskId].tStarterSelection), 0);
+    u16 starterSpecies = GetStarterPokemon(gTasks[taskId].tStarterSelection);
+    PlayCry_Normal(starterSpecies, 0);
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_ConfirmStarterChoice, 0, 1, 0, NULL);
     ScheduleBgCopyTilemapToVram(0);
@@ -557,14 +697,11 @@ static void Task_HandleConfirmStarterInput(u8 taskId)
         spriteId = gTasks[taskId].tCircleSpriteId;
         FreeOamMatrix(gSprites[spriteId].oam.matrixNum);
         DestroySprite(&gSprites[spriteId]);
-        gTasks[taskId].func = Task_DeclineStarter;
+        
+        // Return to phase 2 (starter selection)
+        gTasks[taskId].func = Task_HandleStarterSelectionInput;
         break;
     }
-}
-
-static void Task_DeclineStarter(u8 taskId)
-{
-    gTasks[taskId].func = Task_StarterChoose;
 }
 
 static void CreateStarterPokemonLabel(u8 selection)
@@ -574,8 +711,10 @@ static void CreateStarterPokemonLabel(u8 selection)
     const u8 *speciesName;
     s32 width;
     u8 labelLeft, labelRight, labelTop, labelBottom;
-
-    u16 species = GetStarterPokemon(selection);
+    u16 species;
+    
+    // Always show actual starter names now
+    species = GetStarterPokemon(selection);
     CopyMonCategoryText(species, categoryText);
     speciesName = GetSpeciesName(species);
 
@@ -617,7 +756,11 @@ static void ClearStarterLabel(void)
 static void Task_MoveStarterChooseCursor(u8 taskId)
 {
     ClearStarterLabel();
-    gTasks[taskId].func = Task_CreateStarterLabel;
+    
+    if (gTasks[taskId].tPhase == 1)
+        gTasks[taskId].func = Task_HandleStarterSelectionInput;  // Stay in Phase 2
+    else
+        gTasks[taskId].func = Task_CreateStarterLabel;    // Phase 1
 }
 
 static void Task_CreateStarterLabel(u8 taskId)
