@@ -1,1 +1,0 @@
-.set LOCALID_ZRING_BALL, 30
