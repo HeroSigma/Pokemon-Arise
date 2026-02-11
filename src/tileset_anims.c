@@ -24,6 +24,9 @@ static void (*sSecondaryTilesetAnimCallback)(u16);
 static void _InitPrimaryTilesetAnimation(void);
 static void _InitSecondaryTilesetAnimation(void);
 static void TilesetAnim_General(u16);
+static void TilesetAnim_KantoGeneral(u16);
+static void TilesetAnim_JohtoGeneral(u16);
+static void TilesetAnim_SinnohGeneral(u16);
 static void TilesetAnim_Building(u16);
 static void TilesetAnim_Rustboro(u16);
 static void TilesetAnim_Dewford(u16);
@@ -48,6 +51,12 @@ static void QueueAnimTiles_General_Water(u16);
 static void QueueAnimTiles_General_SandWaterEdge(u16);
 static void QueueAnimTiles_General_Waterfall(u16);
 static void QueueAnimTiles_General_LandWaterEdge(u16);
+static void QueueAnimTiles_KantoGeneral_Kantoflower(u16);
+static void QueueAnimTiles_KantoGeneral_Kantowater(u16);
+static void QueueAnimTiles_KantoGeneral_Kantosandy(u16);
+static void QueueAnimTiles_JohtoGeneral_Johtoflower(u16);
+static void QueueAnimTiles_JohtoGeneral_Johtowater(u16);
+static void QueueAnimTiles_JohtoGeneral_Johtosandy(u16);
 static void QueueAnimTiles_Building_TVTurnedOn(u16);
 static void QueueAnimTiles_Rustboro_WindyWater(u16, u8);
 static void QueueAnimTiles_Rustboro_Fountain(u16);
@@ -84,6 +93,114 @@ const u16 *const gTilesetAnims_General_Flower[] = {
     gTilesetAnims_General_Flower_Frame1,
     gTilesetAnims_General_Flower_Frame0,
     gTilesetAnims_General_Flower_Frame2
+};
+
+const u16 gTilesetAnims_KantoGeneral_Kantoflower_Frame0[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantoflower/0.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantoflower_Frame1[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantoflower/1.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantoflower_Frame2[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantoflower/2.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantoflower_Frame3[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantoflower/3.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantoflower_Frame4[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantoflower/4.4bpp");
+
+const u16 *const gTilesetAnims_KantoGeneral_Kantoflower[] = {
+    gTilesetAnims_KantoGeneral_Kantoflower_Frame0,
+    gTilesetAnims_KantoGeneral_Kantoflower_Frame1,
+    gTilesetAnims_KantoGeneral_Kantoflower_Frame2,
+    gTilesetAnims_KantoGeneral_Kantoflower_Frame3,
+    gTilesetAnims_KantoGeneral_Kantoflower_Frame4
+};
+
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame0[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/0.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame1[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/1.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame2[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/2.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame3[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/3.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame4[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/4.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame5[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/5.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame6[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/6.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantowater_Frame7[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantowater/7.4bpp");
+
+const u16 *const gTilesetAnims_KantoGeneral_Kantowater[] = {
+    gTilesetAnims_KantoGeneral_Kantowater_Frame0,
+    gTilesetAnims_KantoGeneral_Kantowater_Frame1,
+    gTilesetAnims_KantoGeneral_Kantowater_Frame2,
+    gTilesetAnims_KantoGeneral_Kantowater_Frame3,
+    gTilesetAnims_KantoGeneral_Kantowater_Frame4,
+    gTilesetAnims_KantoGeneral_Kantowater_Frame5,
+    gTilesetAnims_KantoGeneral_Kantowater_Frame6,
+    gTilesetAnims_KantoGeneral_Kantowater_Frame7
+};
+
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame0[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/0.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame1[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/1.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame2[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/2.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame3[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/3.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame4[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/4.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame5[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/5.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame6[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/6.4bpp");
+const u16 gTilesetAnims_KantoGeneral_Kantosandy_Frame7[] = INCBIN_U16("data/tilesets/primary/kantogeneral/anim/kantosandy/7.4bpp");
+
+const u16 *const gTilesetAnims_KantoGeneral_Kantosandy[] = {
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame0,
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame1,
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame2,
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame3,
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame4,
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame5,
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame6,
+    gTilesetAnims_KantoGeneral_Kantosandy_Frame7
+};
+
+const u16 gTilesetAnims_JohtoGeneral_Johtoflower_Frame0[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtoflower/0.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtoflower_Frame1[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtoflower/1.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtoflower_Frame2[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtoflower/2.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtoflower_Frame3[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtoflower/3.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtoflower_Frame4[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtoflower/4.4bpp");
+
+const u16 *const gTilesetAnims_JohtoGeneral_Johtoflower[] = {
+    gTilesetAnims_JohtoGeneral_Johtoflower_Frame0,
+    gTilesetAnims_JohtoGeneral_Johtoflower_Frame1,
+    gTilesetAnims_JohtoGeneral_Johtoflower_Frame2,
+    gTilesetAnims_JohtoGeneral_Johtoflower_Frame3,
+    gTilesetAnims_JohtoGeneral_Johtoflower_Frame4
+};
+
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame0[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/0.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame1[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/1.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame2[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/2.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame3[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/3.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame4[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/4.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame5[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/5.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame6[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/6.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtowater_Frame7[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtowater/7.4bpp");
+
+const u16 *const gTilesetAnims_JohtoGeneral_Johtowater[] = {
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame0,
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame1,
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame2,
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame3,
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame4,
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame5,
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame6,
+    gTilesetAnims_JohtoGeneral_Johtowater_Frame7
+};
+
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame0[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/0.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame1[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/1.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame2[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/2.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame3[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/3.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame4[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/4.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame5[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/5.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame6[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/6.4bpp");
+const u16 gTilesetAnims_JohtoGeneral_Johtosandy_Frame7[] = INCBIN_U16("data/tilesets/primary/johtogeneral/anim/johtosandy/7.4bpp");
+
+const u16 *const gTilesetAnims_JohtoGeneral_Johtosandy[] = {
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame0,
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame1,
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame2,
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame3,
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame4,
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame5,
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame6,
+    gTilesetAnims_JohtoGeneral_Johtosandy_Frame7
 };
 
 const u16 gTilesetAnims_General_Water_Frame0[] = INCBIN_U16("data/tilesets/primary/general/anim/water/0.4bpp");
@@ -484,14 +601,14 @@ const u16 *const gTilesetAnims_BikeShop_BlinkingLights[] = {
     gTilesetAnims_BikeShop_BlinkingLights_Frame1
 };
 
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame0[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/0_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/0_groudon.4bpp");
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame1[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/1_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/1_groudon.4bpp");
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame2[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/2_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/2_groudon.4bpp");
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame3[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/3_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/3_groudon.4bpp");
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame4[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/4_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/4_groudon.4bpp");
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame5[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/5_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/5_groudon.4bpp");
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame6[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/6_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/6_groudon.4bpp");
-const u16 gTilesetAnims_Sootopolis_StormyWater_Frame7[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/7_kyogre.4bpp", "data/tilesets/secondary/sootopolis/anim/stormy_water/7_groudon.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame0[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/0.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame1[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/1.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame2[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/2.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame3[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/3.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame4[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/4.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame5[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/5.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame6[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/6.4bpp");
+const u16 gTilesetAnims_Sootopolis_StormyWater_Frame7[] = INCBIN_U16("data/tilesets/secondary/sootopolis/anim/stormy_water/7.4bpp");
 const u16 tileset_anims_space_8[16] = {};
 
 const u16 gTilesetAnims_Unused1_Frame0[] = INCBIN_U16("data/tilesets/secondary/unused_1/0.4bpp");
@@ -537,7 +654,7 @@ const u16 *const gTilesetAnims_BattlePyramid_StatueShadow[] = {
     gTilesetAnims_BattlePyramid_StatueShadow_Frame2
 };
 
-static const u16 *const sTilesetAnims_BattleDomeFloorLightPals[] = {
+static const u16 *const gTilesetAnims_BattleDomeFloorLightPals[] = {
     gTilesetAnims_BattleDomePals0_0,
     gTilesetAnims_BattleDomePals0_1,
     gTilesetAnims_BattleDomePals0_2,
@@ -622,6 +739,27 @@ void InitTilesetAnim_General(void)
     sPrimaryTilesetAnimCallback = TilesetAnim_General;
 }
 
+void InitTilesetAnim_KantoGeneral(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_KantoGeneral;
+}
+
+void InitTilesetAnim_JohtoGeneral(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_JohtoGeneral;
+}
+
+void InitTilesetAnim_SinnohGeneral(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_SinnohGeneral;
+}
+
 void InitTilesetAnim_Building(void)
 {
     sPrimaryTilesetAnimCounter = 0;
@@ -643,34 +781,101 @@ static void TilesetAnim_General(u16 timer)
         QueueAnimTiles_General_LandWaterEdge(timer / 16);
 }
 
+static void TilesetAnim_KantoGeneral(u16 timer)
+{
+    if (timer % 16 == 5)
+        QueueAnimTiles_KantoGeneral_Kantoflower(timer / 16);
+    if (timer % 16 == 6)
+        QueueAnimTiles_KantoGeneral_Kantowater(timer / 16);
+    if (timer % 16 == 7)
+        QueueAnimTiles_KantoGeneral_Kantosandy(timer / 16);
+}
+
+static void TilesetAnim_JohtoGeneral(u16 timer)
+{
+    if (timer % 16 == 5)
+        QueueAnimTiles_JohtoGeneral_Johtoflower(timer / 16);
+    if (timer % 16 == 6)
+        QueueAnimTiles_JohtoGeneral_Johtowater(timer / 16);
+    if (timer % 16 == 7)
+        QueueAnimTiles_JohtoGeneral_Johtosandy(timer / 16);
+}
+
+static void TilesetAnim_SinnohGeneral(u16 timer)
+{
+    TilesetAnim_KantoGeneral(timer);
+}
+
 static void TilesetAnim_Building(u16 timer)
 {
     if (timer % 8 == 0)
         QueueAnimTiles_Building_TVTurnedOn(timer / 8);
 }
 
+#define FLOWER_DEST_8X8 208  // x=16, y=6  -> 16 + 6*32
+
 static void QueueAnimTiles_General_Flower(u16 timer)
 {
     u16 i = timer % ARRAY_COUNT(gTilesetAnims_General_Flower);
-    AppendTilesetAnimToBuffer(gTilesetAnims_General_Flower[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(508)), 4 * TILE_SIZE_4BPP);
+    AppendTilesetAnimToBuffer(gTilesetAnims_General_Flower[i],
+        (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(FLOWER_DEST_8X8)),  // now correct
+        4 * TILE_SIZE_4BPP);   // copies TL,TR,BL,BR (4×8x8) contiguously
+}
+
+static void QueueAnimTiles_KantoGeneral_Kantoflower(u16 timer)
+{
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_KantoGeneral_Kantoflower);
+    AppendTilesetAnimToBuffer(gTilesetAnims_KantoGeneral_Kantoflower[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(508)), 4 * TILE_SIZE_4BPP);
+}
+
+
+static void QueueAnimTiles_KantoGeneral_Kantowater(u16 timer)
+{
+    // Animation disabled for Kanto water
+    return;
+}
+
+static void QueueAnimTiles_KantoGeneral_Kantosandy(u16 timer)
+{
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_KantoGeneral_Kantosandy);
+    AppendTilesetAnimToBuffer(gTilesetAnims_KantoGeneral_Kantosandy[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(464)), 18 * TILE_SIZE_4BPP);
+}
+
+static void QueueAnimTiles_JohtoGeneral_Johtoflower(u16 timer)
+{
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_JohtoGeneral_Johtoflower);
+    AppendTilesetAnimToBuffer(gTilesetAnims_JohtoGeneral_Johtoflower[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(508)), 4 * TILE_SIZE_4BPP);
+}
+
+static void QueueAnimTiles_JohtoGeneral_Johtowater(u16 timer)
+{
+    // Animation disabled for Johto water
+    return;
+}
+
+static void QueueAnimTiles_JohtoGeneral_Johtosandy(u16 timer)
+{
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_JohtoGeneral_Johtosandy);
+    AppendTilesetAnimToBuffer(gTilesetAnims_JohtoGeneral_Johtosandy[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(464)), 18 * TILE_SIZE_4BPP);
 }
 
 static void QueueAnimTiles_General_Water(u16 timer)
 {
-    u8 i = timer % ARRAY_COUNT(gTilesetAnims_General_Water);
-    AppendTilesetAnimToBuffer(gTilesetAnims_General_Water[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(432)), 30 * TILE_SIZE_4BPP);
+    // Animation disabled for Ocean water
+    return;
 }
 
 static void QueueAnimTiles_General_SandWaterEdge(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_General_SandWaterEdge);
-    AppendTilesetAnimToBuffer(gTilesetAnims_General_SandWaterEdge[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(464)), 10 * TILE_SIZE_4BPP);
+    // Animation disabled for Sand/Water Edge
+    (void)timer;  // Mark parameter as intentionally unused
+    return;
 }
 
 static void QueueAnimTiles_General_Waterfall(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_General_Waterfall);
-    AppendTilesetAnimToBuffer(gTilesetAnims_General_Waterfall[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(496)), 6 * TILE_SIZE_4BPP);
+    // Animation disabled for General Waterfall
+    return;
 }
 
 void InitTilesetAnim_Petalburg(void)
@@ -836,156 +1041,112 @@ void InitTilesetAnim_BattleDome(void)
 
 static void TilesetAnim_Rustboro(u16 timer)
 {
-    if (timer % 8 == 0)
-    {
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 0);
-        QueueAnimTiles_Rustboro_Fountain(timer / 8);
-    }
-    if (timer % 8 == 1)
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 1);
-    if (timer % 8 == 2)
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 2);
-    if (timer % 8 == 3)
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 3);
-    if (timer % 8 == 4)
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 4);
-    if (timer % 8 == 5)
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 5);
-    if (timer % 8 == 6)
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 6);
-    if (timer % 8 == 7)
-        QueueAnimTiles_Rustboro_WindyWater(timer / 8, 7);
+    // All Rustboro animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Dewford(u16 timer)
 {
-    if (timer % 8 == 0)
-        QueueAnimTiles_Dewford_Flag(timer / 8);
+    // All Dewford animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Slateport(u16 timer)
 {
-    if (timer % 16 == 0)
-        QueueAnimTiles_Slateport_Balloons(timer / 16);
+    // All Slateport animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Mauville(u16 timer)
 {
-    if (timer % 8 == 0)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 0);
-    if (timer % 8 == 1)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 1);
-    if (timer % 8 == 2)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 2);
-    if (timer % 8 == 3)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 3);
-    if (timer % 8 == 4)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 4);
-    if (timer % 8 == 5)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 5);
-    if (timer % 8 == 6)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 6);
-    if (timer % 8 == 7)
-        QueueAnimTiles_Mauville_Flowers(timer / 8, 7);
+    // All Mauville animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Lavaridge(u16 timer)
 {
-    if (timer % 16 == 0)
-        QueueAnimTiles_Lavaridge_Steam(timer / 16);
-    if (timer % 16 == 1)
-        QueueAnimTiles_Lavaridge_Lava(timer / 16);
+    // All Lavaridge animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_EverGrande(u16 timer)
 {
-    if (timer % 8 == 0)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 0);
-    if (timer % 8 == 1)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 1);
-    if (timer % 8 == 2)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 2);
-    if (timer % 8 == 3)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 3);
-    if (timer % 8 == 4)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 4);
-    if (timer % 8 == 5)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 5);
-    if (timer % 8 == 6)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 6);
-    if (timer % 8 == 7)
-        QueueAnimTiles_EverGrande_Flowers(timer / 8, 7);
+    // All EverGrande animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Pacifidlog(u16 timer)
 {
-    if (timer % 16 == 0)
-        QueueAnimTiles_Pacifidlog_LogBridges(timer / 16);
-    if (timer % 16 == 1)
-        QueueAnimTiles_Pacifidlog_WaterCurrents(timer / 16);
+    // All Pacifidlog animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Sootopolis(u16 timer)
 {
-    if (timer % 16 == 0)
-        QueueAnimTiles_Sootopolis_StormyWater(timer / 16);
+    // All Sootopolis animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Underwater(u16 timer)
 {
-    if (timer % 16 == 0)
-        QueueAnimTiles_Underwater_Seaweed(timer / 16);
+    // All Underwater animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_Cave(u16 timer)
 {
-    if (timer % 16 == 1)
-        QueueAnimTiles_Cave_Lava(timer / 16);
+    // All Cave animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_BattleFrontierOutsideWest(u16 timer)
 {
-    if (timer % 8 == 0)
-        QueueAnimTiles_BattleFrontierOutsideWest_Flag(timer / 8);
+    // All BattleFrontierOutsideWest animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_BattleFrontierOutsideEast(u16 timer)
 {
-    if (timer % 8 == 0)
-        QueueAnimTiles_BattleFrontierOutsideEast_Flag(timer / 8);
+    // All BattleFrontierOutsideEast animation disabled except doors (none here)
+    return;
 }
 
 static void QueueAnimTiles_General_LandWaterEdge(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_General_LandWaterEdge);
-    AppendTilesetAnimToBuffer(gTilesetAnims_General_LandWaterEdge[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(480)), 10 * TILE_SIZE_4BPP);
+    // Animation disabled for Land/Water Edge
+    (void)timer;  // Mark parameter as intentionally unused
+    return;
 }
 
 static void QueueAnimTiles_Lavaridge_Steam(u8 timer)
 {
-    u8 i = timer % ARRAY_COUNT(gTilesetAnims_Lavaridge_Steam);
+    u8 i = (timer % ARRAY_COUNT(gTilesetAnims_Lavaridge_Steam));
     AppendTilesetAnimToBuffer(gTilesetAnims_Lavaridge_Steam[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 288)), 4 * TILE_SIZE_4BPP);
 
-    i = (timer + 2) % (int)ARRAY_COUNT(gTilesetAnims_Lavaridge_Steam);
+    i = ((timer + 2) % (int)ARRAY_COUNT(gTilesetAnims_Lavaridge_Steam));
     AppendTilesetAnimToBuffer(gTilesetAnims_Lavaridge_Steam[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 292)), 4 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_Pacifidlog_LogBridges(u8 timer)
 {
-    u8 i = timer % ARRAY_COUNT(gTilesetAnims_Pacifidlog_LogBridges);
+    u8 i = (timer % ARRAY_COUNT(gTilesetAnims_Pacifidlog_LogBridges));
     AppendTilesetAnimToBuffer(gTilesetAnims_Pacifidlog_LogBridges[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 464)), 30 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_Underwater_Seaweed(u8 timer)
 {
-    u8 i = timer % ARRAY_COUNT(gTilesetAnims_Underwater_Seaweed);
+    u8 i = (timer % ARRAY_COUNT(gTilesetAnims_Underwater_Seaweed));
     AppendTilesetAnimToBuffer(gTilesetAnims_Underwater_Seaweed[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 496)), 4 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_Pacifidlog_WaterCurrents(u8 timer)
 {
-    u8 i = timer % ARRAY_COUNT(gTilesetAnims_Pacifidlog_WaterCurrents);
-    AppendTilesetAnimToBuffer(gTilesetAnims_Pacifidlog_WaterCurrents[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 496)), 8 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
+    // Animation disabled for Pacifidlog Water Currents
+    return;
 }
 
 static void QueueAnimTiles_Mauville_Flowers(u16 timer_div, u8 timer_mod)
@@ -1007,22 +1168,24 @@ static void QueueAnimTiles_Mauville_Flowers(u16 timer_div, u8 timer_mod)
 
 static void QueueAnimTiles_Rustboro_WindyWater(u16 timer_div, u8 timer_mod)
 {
-    timer_div -= timer_mod;
-    timer_div %= ARRAY_COUNT(gTilesetAnims_Rustboro_WindyWater);
-    if (gTilesetAnims_Rustboro_WindyWater[timer_div])
-        AppendTilesetAnimToBuffer(gTilesetAnims_Rustboro_WindyWater[timer_div], gTilesetAnims_Rustboro_WindyWater_VDests[timer_mod], 4 * TILE_SIZE_4BPP);
+    (void)timer_div;  // Mark parameter as intentionally unused
+    (void)timer_mod;  // Mark parameter as intentionally unused
+    // Animation disabled for Rustboro WindyWater
+    return;
 }
 
 static void QueueAnimTiles_Rustboro_Fountain(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Rustboro_Fountain);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_Rustboro_Fountain));
     AppendTilesetAnimToBuffer(gTilesetAnims_Rustboro_Fountain[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 448)), 4 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_Lavaridge_Lava(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Lavaridge_Cave_Lava);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_Lavaridge_Cave_Lava));
     AppendTilesetAnimToBuffer(gTilesetAnims_Lavaridge_Cave_Lava[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 160)), 4 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_EverGrande_Flowers(u16 timer_div, u8 timer_mod)
@@ -1035,67 +1198,72 @@ static void QueueAnimTiles_EverGrande_Flowers(u16 timer_div, u8 timer_mod)
 
 static void QueueAnimTiles_Cave_Lava(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Lavaridge_Cave_Lava);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_Lavaridge_Cave_Lava));
     AppendTilesetAnimToBuffer(gTilesetAnims_Lavaridge_Cave_Lava[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 416)), 4 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_Dewford_Flag(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Dewford_Flag);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_Dewford_Flag));
     AppendTilesetAnimToBuffer(gTilesetAnims_Dewford_Flag[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 170)), 6 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_BattleFrontierOutsideWest_Flag(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_BattleFrontierOutsideWest_Flag);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_BattleFrontierOutsideWest_Flag));
     AppendTilesetAnimToBuffer(gTilesetAnims_BattleFrontierOutsideWest_Flag[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 218)), 6 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_BattleFrontierOutsideEast_Flag(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_BattleFrontierOutsideEast_Flag);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_BattleFrontierOutsideEast_Flag));
     AppendTilesetAnimToBuffer(gTilesetAnims_BattleFrontierOutsideEast_Flag[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 218)), 6 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_Slateport_Balloons(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Slateport_Balloons);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_Slateport_Balloons));
     AppendTilesetAnimToBuffer(gTilesetAnims_Slateport_Balloons[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 224)), 4 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void TilesetAnim_MauvilleGym(u16 timer)
 {
-    if (timer % 2 == 0)
-        QueueAnimTiles_MauvilleGym_ElectricGates(timer / 2);
+    (void)timer;  // Mark parameter as intentionally unused
+    // All MauvilleGym animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_SootopolisGym(u16 timer)
 {
-    if (timer % 8 == 0)
-        QueueAnimTiles_SootopolisGym_Waterfalls(timer / 8);
+    (void)timer;  // Mark parameter as intentionally unused
+    // All SootopolisGym animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_EliteFour(u16 timer)
 {
-    if (timer % 64 == 1)
-        QueueAnimTiles_EliteFour_GroundLights(timer / 64);
-    if (timer % 8 == 1)
-        QueueAnimTiles_EliteFour_WallLights(timer / 8);
+    (void)timer;  // Mark parameter as intentionally unused
+    // All EliteFour animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_BikeShop(u16 timer)
 {
-    if (timer % 4 == 0)
-        QueueAnimTiles_BikeShop_BlinkingLights(timer / 4);
+    (void)timer;  // Mark parameter as intentionally unused
+    // All BikeShop animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_BattlePyramid(u16 timer)
 {
-    if (timer % 8 == 0)
-    {
-        QueueAnimTiles_BattlePyramid_Torch(timer / 8);
-        QueueAnimTiles_BattlePyramid_StatueShadow(timer / 8);
-    }
+    (void)timer;  // Mark parameter as intentionally unused
+    // All BattlePyramid animation disabled except doors (none here)
+    return;
 }
 
 static void TilesetAnim_BattleDome(u16 timer)
@@ -1112,63 +1280,70 @@ static void TilesetAnim_BattleDome2(u16 timer)
 
 static void QueueAnimTiles_Building_TVTurnedOn(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Building_TvTurnedOn);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_Building_TvTurnedOn));
     AppendTilesetAnimToBuffer(gTilesetAnims_Building_TvTurnedOn[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(496)), 4 * TILE_SIZE_4BPP);
 }
 
 static void QueueAnimTiles_SootopolisGym_Waterfalls(u16 timer)
 {
-    u16 i = timer % min(ARRAY_COUNT(gTilesetAnims_SootopolisGym_SideWaterfall), ARRAY_COUNT(gTilesetAnims_SootopolisGym_FrontWaterfall));
-    AppendTilesetAnimToBuffer(gTilesetAnims_SootopolisGym_SideWaterfall[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 496)), 12 * TILE_SIZE_4BPP);
-    AppendTilesetAnimToBuffer(gTilesetAnims_SootopolisGym_FrontWaterfall[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 464)), 20 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
+    // Animation disabled for Sootopolis Gym Waterfalls
+    return;
 }
 
 static void QueueAnimTiles_EliteFour_WallLights(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_EliteFour_WallLights);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_EliteFour_WallLights));
     AppendTilesetAnimToBuffer(gTilesetAnims_EliteFour_WallLights[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 504)), 1 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_EliteFour_GroundLights(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_EliteFour_FloorLight);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_EliteFour_FloorLight));
     AppendTilesetAnimToBuffer(gTilesetAnims_EliteFour_FloorLight[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 480)), 4 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_MauvilleGym_ElectricGates(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_MauvilleGym_ElectricGates);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_MauvilleGym_ElectricGates));
     AppendTilesetAnimToBuffer(gTilesetAnims_MauvilleGym_ElectricGates[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 144)), 16 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_BikeShop_BlinkingLights(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_BikeShop_BlinkingLights);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_BikeShop_BlinkingLights));
     AppendTilesetAnimToBuffer(gTilesetAnims_BikeShop_BlinkingLights[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 496)), 9 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_Sootopolis_StormyWater(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Sootopolis_StormyWater);
-    AppendTilesetAnimToBuffer(gTilesetAnims_Sootopolis_StormyWater[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 240)), 96 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
+    // Animation disabled for Sootopolis Stormy Water
+    return;
 }
 
 static void QueueAnimTiles_BattlePyramid_Torch(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_BattlePyramid_Torch);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_BattlePyramid_Torch));
     AppendTilesetAnimToBuffer(gTilesetAnims_BattlePyramid_Torch[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 151)), 8 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void QueueAnimTiles_BattlePyramid_StatueShadow(u16 timer)
 {
-    u16 i = timer % ARRAY_COUNT(gTilesetAnims_BattlePyramid_StatueShadow);
+    u16 i = (timer % ARRAY_COUNT(gTilesetAnims_BattlePyramid_StatueShadow));
     AppendTilesetAnimToBuffer(gTilesetAnims_BattlePyramid_StatueShadow[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 135)), 8 * TILE_SIZE_4BPP);
+    (void)timer;  // Mark parameter as intentionally unused
 }
 
 static void BlendAnimPalette_BattleDome_FloorLights(u16 timer)
 {
-    CpuCopy16(sTilesetAnims_BattleDomeFloorLightPals[timer % ARRAY_COUNT(sTilesetAnims_BattleDomeFloorLightPals)], &gPlttBufferUnfaded[BG_PLTT_ID(8)], PLTT_SIZE_4BPP);
-    BlendPalette(BG_PLTT_ID(8), 16, gPaletteFade.y, gPaletteFade.blendColor & 0x7FFF);
+    CpuCopy16(gTilesetAnims_BattleDomeFloorLightPals[timer % ARRAY_COUNT(gTilesetAnims_BattleDomeFloorLightPals)], &gPlttBufferUnfaded[0x80], 32);
+    BlendPalette(0x80, 16, gPaletteFade.y, gPaletteFade.blendColor & 0x7FFF);
     if ((u8)FindTaskIdByFunc(Task_BattleTransition_Intro) != TASK_NONE)
     {
         sSecondaryTilesetAnimCallback = TilesetAnim_BattleDome2;
@@ -1178,10 +1353,10 @@ static void BlendAnimPalette_BattleDome_FloorLights(u16 timer)
 
 static void BlendAnimPalette_BattleDome_FloorLightsNoBlend(u16 timer)
 {
-    CpuCopy16(sTilesetAnims_BattleDomeFloorLightPals[timer % ARRAY_COUNT(sTilesetAnims_BattleDomeFloorLightPals)], &gPlttBufferUnfaded[BG_PLTT_ID(8)], PLTT_SIZE_4BPP);
+    CpuCopy16(gTilesetAnims_BattleDomeFloorLightPals[timer % ARRAY_COUNT(gTilesetAnims_BattleDomeFloorLightPals)], &gPlttBufferUnfaded[0x80], 32);
     if ((u8)FindTaskIdByFunc(Task_BattleTransition_Intro) == TASK_NONE)
     {
-        BlendPalette(BG_PLTT_ID(8), 16, gPaletteFade.y, gPaletteFade.blendColor & 0x7FFF);
+        BlendPalette(0x80, 16, gPaletteFade.y, gPaletteFade.blendColor & 0x7FFF);
         if (!--sSecondaryTilesetAnimCounterMax)
             sSecondaryTilesetAnimCallback = NULL;
     }

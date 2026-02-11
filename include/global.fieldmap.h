@@ -64,6 +64,9 @@ struct Tileset
     /*0x0C*/ const u16 *metatiles;
     /*0x10*/ const u16 *metatileAttributes;
     /*0x14*/ TilesetCB callback;
+    /*0x18*/ const u16 (*palettes_summer)[16];
+    /*0x1C*/ const u16 (*palettes_autumn)[16];
+    /*0x20*/ const u16 (*palettes_winter)[16];
 };
 
 struct MapLayout
