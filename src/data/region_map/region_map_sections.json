@@ -1230,6 +1230,87 @@
       "y": 4,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "MAPSEC_SANDGEM_TOWN"
+    },
+    {
+      "id": "MAPSEC_JUBILIFE_CITY"
+    },
+    {
+      "id": "MAPSEC_ROUTE_221"
+    },
+    {
+      "id": "MAPSEC_ROUTE_202"
+    },
+    {
+      "id": "MAPSEC_ROUTE_211"
+    },
+    {
+      "id": "MAPSEC_ROUTE_206"
+    },
+    {
+      "id": "MAPSEC_VERITY_LAKEFRONT"
+    },
+    {
+      "id": "MAPSEC_ROUTE_205"
+    },
+    {
+      "id": "MAPSEC_VALLEY_WINDWORKS"
+    },
+    {
+      "id": "MAPSEC_CANALAVE_CITY"
+    },
+    {
+      "id": "MAPSEC_ROUTE_219"
+    },
+    {
+      "id": "MAPSEC_ROUTE_220"
+    },
+    {
+      "id": "MAPSEC_TWINLEAF_TOWN"
+    },
+    {
+      "id": "MAPSEC_FLOAROMA_TOWN"
+    },
+    {
+      "id": "MAPSEC_ROUTE_207"
+    },
+    {
+      "id": "MAPSEC_ROUTE_203"
+    },
+    {
+      "id": "MAPSEC_ROUTE_218"
+    },
+    {
+      "id": "MAPSEC_ROUTE_201"
+    },
+    {
+      "id": "MAPSEC_OREBURGH_CITY"
+    },
+    {
+      "id": "MAPSEC_ROUTE_204"
+    },
+    {
+      "id": "MAPSEC_ETERNA_CITY"
+    },
+    {
+      "id": "MAPSEC_ROUTE_214"
+    },
+    {
+      "id": "MAPSEC_SOLACEON_TOWN"
+    },
+    {
+      "id": "MAPSEC_CELESTIC_TOWN"
+    },
+    {
+      "id": "MAPSEC_VEILSTONE_CITY"
+    },
+    {
+      "id": "MAPSEC_ROUTE_215"
+    },
+    {
+      "id": "MAPSEC_ROUTE_210"
     }
   ]
 }

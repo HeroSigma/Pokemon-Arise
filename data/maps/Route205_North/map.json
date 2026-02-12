@@ -15,12 +15,12 @@
   "connections": [
     {
       "map": "MAP_ROUTE205_SOUTH",
-      "offset": -25,
+      "offset": -24,
       "direction": "down"
     },
     {
       "map": "MAP_ETERNA_CITY",
-      "offset": 0,
+      "offset": -3,
       "direction": "right"
     },
     {
